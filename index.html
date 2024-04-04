@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<head>
+  <link rel="stylesheet" href="styles/preloader.css">
+  <link rel="stylesheet" href="styles/menu.css">
+  <link rel="stylesheet" href="styles/style.css">
+
+    <title> Portfolio V3</title>
+    
+</head>
+
+<body>
+
+  <div id="preloader">
+    <div id="loader"></div>
+  </div>
+<div id="counter">0</div>
+    
+<div id="controlls">
+  <div>
+    <button id="forward">
+      <svg width="30" height="30" viewBox="0 0 10 10">
+        <g transform="rotate(0, 5,5)">
+          <path d="M5,4 L7,6 L3,6 L5,4" />
+        </g>
+      </svg>
+    </button>
+    <button id="left">
+      <svg width="30" height="30" viewBox="0 0 10 10">
+        <g transform="rotate(-90, 5,5)">
+          <path d="M5,4 L7,6 L3,6 L5,4" />
+        </g>
+      </svg>
+    </button>
+    <button id="backward">
+      <svg width="30" height="30" viewBox="0 0 10 10">
+        <g transform="rotate(180, 5,5)">
+          <path d="M5,4 L7,6 L3,6 L5,4" />
+        </g>
+      </svg>
+    </button>
+    <button id="right">
+      <svg width="30" height="30" viewBox="0 0 10 10">
+        <g transform="rotate(90, 5,5)">
+          <path d="M5,4 L7,6 L3,6 L5,4" />
+        </g>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<div id="end">
+  <button id="retry">Retry</button>
+</div>
+
+<div id="menu">
+  <div class="menu-item" onclick="moveIndicator(this)">
+      Contact
+      <div class="indicator-ball"></div>
+  </div>
+  <div class="menu-item" onclick="moveIndicator(this)">
+      Cv
+      <div class="indicator-ball"></div>
+  </div>
+  <div class="menu-item" onclick="moveIndicator(this)">
+      Projects
+      <div class="indicator-ball"></div>
+  </div>
+</div>
+<div id="popup-dialog" style="display: none;">
+  Contenido del cuadro de diálogo
+</div>
+
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r79/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stats.js/r16/Stats.min.js"></script>
+
+<script src="http://rawgithub.com/dataarts/dat.gui/master/build/dat.gui.min.js"></script>
+<script src="http://threejs.org/examples/js/controls/TrackballControls.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/loaders/GLTFLoader.js"></script>
+<script src="scripts/OBJLoader.js"></script>
+<script src="scripts/preloader.js"></script>
+
+<script src="scripts/popup.js"></script>
+<script src="scripts/main.js"></script>
+<script src="scripts/menu.js"></script>
+
+
+</html>

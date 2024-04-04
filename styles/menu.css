@@ -1,0 +1,42 @@
+#menu {
+    position: fixed;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: transparent; /* Color de fondo más claro */
+    padding: 15px; /* Aumentar el padding para más espacio */
+    border-radius: 20px; /* Aumentar el radio de borde para una apariencia más suave */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Agregar sombra suave */
+    opacity: 0; /* Establecer opacidad inicialmente en 0 */
+    transition: opacity 5s ease; /* Agregar transición de opacidad */
+}
+
+body.loaded #menu {
+    opacity: 1; /* Cambiar la opacidad a 1 cuando el cuerpo esté cargado */
+}
+
+.menu-item {
+    margin-bottom: 15px; /* Espacio entre elementos del menú */
+    cursor: pointer;
+    position: relative;
+    font-size: 16px; /* Aumentar el tamaño del texto */
+    color: #333; /* Color de texto más oscuro */
+    transition: color 0.3s; /* Transición de color suave */
+}
+
+.menu-item:hover {
+    color: #007bff;
+    font-size: 18px; /* Cambiar el tamaño de la fuente al pasar el cursor */
+}
+
+.indicator-ball {
+    position: absolute;
+    left: -25px; /* Ajustar la posición de la bola indicadora */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 12px; /* Aumentar el tamaño de la bola indicadora */
+    height: 12px; /* Aumentar el tamaño de la bola indicadora */
+    background-color: #007bff; /* Cambiar color de la bola indicadora */
+    border-radius: 50%;
+    transition: width 0.3s, height 0.3s, background-color 0.3s; /* Transición suave */
+}
