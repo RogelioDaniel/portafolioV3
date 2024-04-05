@@ -54,17 +54,24 @@
 
 <div id="menu">
   <div class="menu-item" onclick="moveIndicator(this)">
-      Contact
-      <div class="indicator-ball"></div>
+    <a href="https://wa.me/5617075485" target="_blank">Contact</a>
+    <div class="indicator-ball"></div>
   </div>
-  <div class="menu-item" onclick="moveIndicator(this)">
-      Cv
-      <div class="indicator-ball"></div>
+  
+  <div class="menu-item">
+    <a href="https://drive.google.com/file/d/1a_HR-hlMp1yj3uIWpzM3LNz1HsGCqdXv/view?usp=drive_link" target="_blank">Cv</a>
+    <div class="indicator-ball"></div>
   </div>
-  <div class="menu-item" onclick="moveIndicator(this)">
-      Projects
-      <div class="indicator-ball"></div>
+  
+  <div class="menu-item" onclick="toggleProjectsContainer()">
+    Projects
+    <div id="projects-container" class="projects-container">
+    </div>
+    
+    <div class="indicator-ball"></div>
   </div>
+  
+  
 </div>
 <div id="popup-dialog" style="display: none;">
   Contenido del cuadro de diálogo

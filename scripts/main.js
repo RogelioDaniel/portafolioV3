@@ -303,6 +303,47 @@ function Three() {
 }
 
 
+function Building() {
+  const building = new THREE.Group();
+
+  // Cargar el modelo OBJ
+  const objLoader = new THREE.OBJLoader();
+  objLoader.load(
+    '/assets/Bakery.obj', // Ruta al archivo del modelo OBJ
+    (obj) => {
+      const textureLoader = new THREE.TextureLoader();
+      // Objeto cargado exitosamente
+textureLoader.load(
+        '/assets/1377 Car.png', // Ruta a la textura
+        (texture) => {
+          // Textura cargada exitosamente
+          // Aplicar la textura al material del objeto
+          obj.traverse((child) => {
+            if (child instanceof THREE.Mesh) {
+              child.material.map = texture;
+            }
+          });      
+        },
+        
+      );
+      // Ajustar el tamaño del objeto
+      const scaleFactor = 2; // Factor de escala para hacer el objeto más pequeño
+      obj.scale.set(scaleFactor, scaleFactor, scaleFactor);
+      // Rotar el modelo en su eje Y y X
+      building.rotation.y = -300; // Rotación en el eje Y
+      building.rotation.x = 190; // Rotación en el eje X
+      building.rotation.z = 0;
+      // Crear una textura
+      building.add(obj); // Agregar el modelo OBJ al grupo subway
+    },
+
+  );
+
+  return building;
+}
+
+
+
 function People() {
   const people = new THREE.Group();
 
@@ -499,7 +540,7 @@ function Lane(index) {
       let usePeople = false; // Variable para alternar entre Three y People
     
       this.threes = [1, 2, 3, 4].map(() => {
-        const object = usePeople ? new People() : new Three(); // Usar People o Three según el valor de usePeople
+        const object = usePeople ? new Building () : new Three(); // Usar People o Three según el valor de usePeople
         let position;
         do {
           position = Math.floor(Math.random() * columns);
@@ -584,7 +625,7 @@ function onClick(event) {
 
   // Envuelve el objeto people en un arreglo para intersectObjects
   var intersects = raycaster.intersectObjects([people], true);
-
+  
   // Si hubo intersección con el objeto People, realiza la acción
   if (intersects.length > 0) {
     console.log('Clic en People!');
@@ -751,7 +792,8 @@ function animate(timestamp) {
             vechicle.rotation.y = 29.8;
             vechicle.rotation.z = 0;
           }
-
+          vechicle.rotation.y = 29.8;
+          vechicle.rotation.z = 0;
             
           vechicle.position.x =
             vechicle.position.x < aBitBeforeTheBeginingOfLane
@@ -761,6 +803,7 @@ function animate(timestamp) {
               
         } else {
           vechicle.position.x =
+          
             vechicle.position.x > aBitAfterTheEndOFLane
               ? aBitBeforeTheBeginingOfLane
               : (vechicle.position.x += (lane.speed / 16) * delta);
@@ -918,3 +961,66 @@ function getObjectsByName(objectList, name){
 
   return wheelObjects;
 }
+
+// URL de la API de GitHub para obtener la lista de repositorios del usuario
+const apiUrl = 'https://api.github.com/users/RogelioDaniel/repos';
+
+// Realizar la solicitud GET a la API de GitHub
+fetch(apiUrl)
+  .then(response => response.json())
+  .then(data => {
+    // Una vez que se obtiene la respuesta, procesar los datos
+    const projectsContainer = document.getElementById('projects-container');
+    data.forEach(repo => {
+      // Crear un elemento de lista para cada repositorio
+      const repoItem = document.createElement('li');
+      // Agregar el nombre del repositorio como enlace
+      const repoLink = document.createElement('a');
+      repoLink.textContent = repo.name;
+      repoLink.href = repo.html_url;
+      repoLink.target = '_blank'; // Abrir enlace en una nueva pestaña
+      repoItem.appendChild(repoLink);
+      // Agregar el elemento de lista al contenedor de proyectos
+      projectsContainer.appendChild(repoItem);
+    });
+  })
+  .catch(error => console.error('Error fetching data:', error));
+
+// Función para cerrar el contenedor de proyectos cuando se hace clic fuera de él
+function closeProjectsContainer(event) {
+  var projectsContainer = document.getElementById('projects-container');
+  // Verificar si el clic ocurrió fuera del contenedor de proyectos
+  if (!projectsContainer.contains(event.target)) {
+    projectsContainer.style.display = 'none'; // Ocultar el contenedor
+    // Remover el event listener para evitar múltiples cierres si se hace clic nuevamente fuera del contenedor
+    document.removeEventListener('click', closeProjectsContainer);
+  }
+}
+
+
+function toggleProjectsContainer() {
+  setTimeout(function() {
+    var projectsContainer = document.getElementById('projects-container');
+    if (projectsContainer.style.display === 'none' || projectsContainer.style.display === '') {
+        projectsContainer.style.display = 'block';
+        // Realiza aquí cualquier otra acción que necesites al abrir el contenedor de proyectos
+        fetch('https://api.github.com/users/RogelioDaniel/repos')
+        .then(response => response.json())
+        .then(data => {
+         
+          data.forEach(repo => {
+            var repoLink = document.createElement('a');
+            repoLink.href = repo.html_url;
+            repoLink.textContent = repo.name;
+          });
+        })
+        .catch(error => console.error('Error fetching data:', error));
+    } else {
+        projectsContainer.style.display = 'none';
+        // Realiza aquí cualquier otra acción que necesites al cerrar el contenedor de proyectos
+    }
+}, 0);
+}
+
+
+  
