@@ -191,7 +191,7 @@ function Car() {
   // Cargar el modelo OBJ del automóvil
   const objLoader = new THREE.OBJLoader();
   objLoader.load(
-    '/assets/1399 Taxi.obj', // Ruta al archivo del modelo OBJ
+    '../assets/1399 Taxi.obj', // Ruta al archivo del modelo OBJ
     (obj) => {
       // Objeto cargado exitosamente
       const scaleFactor = 1.3; // Factor de escala para hacer el objeto más pequeño
@@ -200,7 +200,7 @@ function Car() {
       // Aplicar textura al material del objeto cargado
       const textureLoader = new THREE.TextureLoader();
       textureLoader.load(
-        '/assets/1399 Taxi.png', // Ruta a la textura
+        '../assets/1399 Taxi.png', // Ruta a la textura
         (texture) => {
           // Textura cargada exitosamente
           // Aplicar la textura al material del objeto
@@ -235,12 +235,12 @@ function Subway() {
   // Cargar el modelo OBJ
   const objLoader = new THREE.OBJLoader();
   objLoader.load(
-    '/assets/1377 Car.obj', // Ruta al archivo del modelo OBJ
+    '../assets/1377 Car.obj', // Ruta al archivo del modelo OBJ
     (obj) => {
       const textureLoader = new THREE.TextureLoader();
       // Objeto cargado exitosamente
 textureLoader.load(
-        '/assets/1377 Car.png', // Ruta a la textura
+        '../assets/1377 Car.png', // Ruta a la textura
         (texture) => {
           // Textura cargada exitosamente
           // Aplicar la textura al material del objeto
@@ -309,12 +309,12 @@ function Building() {
   // Cargar el modelo OBJ
   const objLoader = new THREE.OBJLoader();
   objLoader.load(
-    '/assets/DonutStore.obj', // Ruta al archivo del modelo OBJ
+    '../assets/DonutStore.obj', // Ruta al archivo del modelo OBJ
     (obj) => {
       const textureLoader = new THREE.TextureLoader();
       // Objeto cargado exitosamente
 textureLoader.load(
-        '/assets/WindowsDonutStore.png', // Ruta a la textura
+        '../assets/WindowsDonutStore.png', // Ruta a la textura
         (texture) => {
           // Textura cargada exitosamente
           // Aplicar la textura al material del objeto
@@ -446,7 +446,7 @@ function MetroTracks() {
   const metroTracks = new THREE.Group();
   const platformWidth = 10;
   // Texturas
-  const trackTexture = new THREE.TextureLoader().load('/assets/road.jpg');
+  const trackTexture = new THREE.TextureLoader().load('../assets/road.jpg');
 
 
   // Función para crear secciones de las vías del metro con texturas
@@ -500,9 +500,9 @@ function Grass() {
 
   // Cargar las texturas
   const textureLoader = new THREE.TextureLoader();
-  const middleTexture = textureLoader.load('/assets/pavement.jpg');
-  const leftTexture = textureLoader.load('/assets/gravel.jpg');
-  const rightTexture = textureLoader.load('/assets/gravel.jpg');
+  const middleTexture = textureLoader.load('../assets/pavement.jpg');
+  const leftTexture = textureLoader.load('../assets/gravel.jpg');
+  const rightTexture = textureLoader.load('../assets/gravel.jpg');
 
   // Crear secciones con textura y agregarlas al grupo
   const middle = createSection(middleTexture);
