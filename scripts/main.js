@@ -650,9 +650,7 @@ function onClick(event) {
     camera.rotation.x = (25 * Math.PI) / 180;
     camera.rotation.y = (20 * Math.PI) / 180;
     camera.rotation.z = (10 * Math.PI) / 180;
-    var fov = camera.fov, zoom = 1.0, inc = -0.01;
-    camera.lookAt( new THREE.Vector3(100, 100, 100) );
-    camera.fov *= 1000 ;
+    camera.zoom = zoom * 2.5;
     camera.updateProjectionMatrix();
     // Agregar el icono de "tache" para cerrar
     var closeIcon = document.createElement('span');
@@ -662,7 +660,9 @@ function onClick(event) {
       document.body.removeChild(popup);
       camera.rotation.x = (25 * Math.PI) / 180;
       camera.rotation.y = (20 * Math.PI) / 180;
-      camera.rotation.z = (10 * Math.PI) / 180; // Cerrar el recuadro al hacer clic en el icono
+      camera.rotation.z = (10 * Math.PI) / 180;
+      camera.zoom = zoom / 1.5;
+      camera.updateProjectionMatrix(); // Cerrar el recuadro al hacer clic en el icono
     });
 
     // Agregar el icono al recuadro
