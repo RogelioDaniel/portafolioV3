@@ -8,7 +8,9 @@ body {
   opacity: 0;
   visibility: visible;
 }
-
+a{
+  color: white;
+}
 #preloader {
   margin: 0;
   font-family: 'Press Start 2P', cursive;
@@ -33,6 +35,7 @@ body.loaded {
   border: 1px solid black;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   z-index: 9999;
+  
 }
 .close-icon {
   position: absolute;
@@ -47,25 +50,6 @@ body.loaded {
   color: black;
 }
 
-.projects-container {
-  display: none;
-}
-
-.projects-container li:hover {
-  color: rgb(7, 7, 134); /* Cambiar el color del texto al pasar el mouse sobre el elemento */
-  font-weight: bold; /* Resaltar el texto al pasar el mouse sobre el elemento */
-}
-.projects-container {
-  display: none;
-  position: static;
-  background-color: rgb(243, 241, 241);
- 
-  
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  z-index: 9999;
-
-}
 .close-btn {
   position: absolute;
   top: 10px;

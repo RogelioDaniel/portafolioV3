@@ -4,7 +4,7 @@ const endDOM = document.getElementById("end");
 
 const scene = new THREE.Scene();
 
-const distance = 500;
+const distance = 700;
 const camera = new THREE.OrthographicCamera(
   window.innerWidth / -2,
   window.innerWidth / 2,
@@ -194,7 +194,7 @@ function Car() {
     '/assets/1399 Taxi.obj', // Ruta al archivo del modelo OBJ
     (obj) => {
       // Objeto cargado exitosamente
-      const scaleFactor = 1.7; // Factor de escala para hacer el objeto más pequeño
+      const scaleFactor = 1.3; // Factor de escala para hacer el objeto más pequeño
       obj.scale.set(scaleFactor, scaleFactor, scaleFactor);
 
       // Aplicar textura al material del objeto cargado
@@ -250,7 +250,7 @@ textureLoader.load(
             }
           });
       // Ajustar el tamaño del objeto
-      const scaleFactor = 2; // Factor de escala para hacer el objeto más pequeño
+      const scaleFactor = 1.5; // Factor de escala para hacer el objeto más pequeño
       obj.scale.set(scaleFactor, scaleFactor, scaleFactor);
       // Rotar el modelo en su eje Y y X
       subway.rotation.y = -300; // Rotación en el eje Y
@@ -309,12 +309,12 @@ function Building() {
   // Cargar el modelo OBJ
   const objLoader = new THREE.OBJLoader();
   objLoader.load(
-    '/assets/Bakery.obj', // Ruta al archivo del modelo OBJ
+    '/assets/DonutStore.obj', // Ruta al archivo del modelo OBJ
     (obj) => {
       const textureLoader = new THREE.TextureLoader();
       // Objeto cargado exitosamente
 textureLoader.load(
-        '/assets/1377 Car.png', // Ruta a la textura
+        '/assets/WindowsDonutStore.png', // Ruta a la textura
         (texture) => {
           // Textura cargada exitosamente
           // Aplicar la textura al material del objeto
@@ -327,13 +327,14 @@ textureLoader.load(
         
       );
       // Ajustar el tamaño del objeto
-      const scaleFactor = 2; // Factor de escala para hacer el objeto más pequeño
+      const scaleFactor = 20; // Factor de escala para hacer el objeto más pequeño
       obj.scale.set(scaleFactor, scaleFactor, scaleFactor);
       // Rotar el modelo en su eje Y y X
       building.rotation.y = -300; // Rotación en el eje Y
-      building.rotation.x = 190; // Rotación en el eje X
+      building.rotation.x = -300; // Rotación en el eje X
       building.rotation.z = 0;
-      // Crear una textura
+      building.position.z = 25 * zoom;
+   
       building.add(obj); // Agregar el modelo OBJ al grupo subway
     },
 
@@ -482,31 +483,45 @@ function MetroTracks() {
 function Grass() {
   const grass = new THREE.Group();
 
-  const createSection = (color) =>
-    new THREE.Mesh(
+  // Función para crear una sección con textura
+  const createSection = (texture) => {
+      // Ajusta la escala de mapeo de textura en el material
+
+    const material = new THREE.MeshPhongMaterial({ map: texture });
+    return new THREE.Mesh(
       new THREE.BoxBufferGeometry(
         boardWidth * zoom,
         positionWidth * zoom,
         3 * zoom
       ),
-      new THREE.MeshPhongMaterial({ color })
+      material
     );
+  };
 
-  const middle = createSection(0xbaf455);
+  // Cargar las texturas
+  const textureLoader = new THREE.TextureLoader();
+  const middleTexture = textureLoader.load('/assets/pavement.jpg');
+  const leftTexture = textureLoader.load('/assets/gravel.jpg');
+  const rightTexture = textureLoader.load('/assets/gravel.jpg');
+
+  // Crear secciones con textura y agregarlas al grupo
+  const middle = createSection(middleTexture);
   middle.receiveShadow = true;
   grass.add(middle);
 
-  const left = createSection(0x99c846);
+  const left = createSection(leftTexture);
   left.position.x = -boardWidth * zoom;
   grass.add(left);
 
-  const right = createSection(0x99c846);
+  const right = createSection(rightTexture);
   right.position.x = boardWidth * zoom;
   grass.add(right);
 
   grass.position.z = 1.5 * zoom;
+
   return grass;
 }
+
 
 
 
@@ -632,13 +647,22 @@ function onClick(event) {
     // Crear un elemento div para el recuadro
     var popup = document.createElement('div');
     popup.classList.add('popup');
-
+    camera.rotation.x = (25 * Math.PI) / 180;
+    camera.rotation.y = (20 * Math.PI) / 180;
+    camera.rotation.z = (10 * Math.PI) / 180;
+    var fov = camera.fov, zoom = 1.0, inc = -0.01;
+    camera.lookAt( new THREE.Vector3(100, 100, 100) );
+    camera.fov *= 1000 ;
+    camera.updateProjectionMatrix();
     // Agregar el icono de "tache" para cerrar
     var closeIcon = document.createElement('span');
     closeIcon.classList.add('close-icon');
     closeIcon.innerHTML = '&times;';
     closeIcon.addEventListener('click', function() {
-      document.body.removeChild(popup); // Cerrar el recuadro al hacer clic en el icono
+      document.body.removeChild(popup);
+      camera.rotation.x = (25 * Math.PI) / 180;
+      camera.rotation.y = (20 * Math.PI) / 180;
+      camera.rotation.z = (10 * Math.PI) / 180; // Cerrar el recuadro al hacer clic en el icono
     });
 
     // Agregar el icono al recuadro
@@ -649,13 +673,14 @@ function onClick(event) {
     
     // Agregar los elementos de la lista
     var nameItem = document.createElement('li');
-    nameItem.textContent = 'Rogelio Daniel Roldán Guzmán, 25 años';
+    nameItem.textContent = 'Rogelio Daniel Roldán Guzmán, 25 years old';
     infoList.appendChild(nameItem);
     
     var portfolioItem = document.createElement('li');
     var portfolioLink = document.createElement('a');
     portfolioLink.href = 'https://rogeliodaniel.github.io/PortafolioV2';
-    portfolioLink.textContent = 'Portafolio';
+    portfolioLink.textContent = 'Portfolio';
+    portfolioLink.style.color = 'blue';
     portfolioItem.appendChild(portfolioLink);
     infoList.appendChild(portfolioItem);
     
@@ -664,7 +689,8 @@ function onClick(event) {
     cvLink.href = 'https://drive.google.com/file/d/1a_HR-hlMp1yj3uIWpzM3LNz1HsGCqdXv/view?usp=drive_link'; // Reemplaza 'link_al_archivo_pdf' con el enlace real al archivo PDF
     cvLink.textContent = 'CV';
     var cvIcon = document.createElement('i');
-    cvIcon.classList.add('fa', 'fa-paperclip'); // Añade clases para el icono de clip usando Font Awesome
+    cvIcon.classList.add('fa', 'fa-paperclip');
+    cvLink.style.color = 'blue';// Añade clases para el icono de clip usando Font Awesome
     cvLink.appendChild(cvIcon);
     cvItem.appendChild(cvLink);
     infoList.appendChild(cvItem);
