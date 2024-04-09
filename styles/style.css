@@ -5,7 +5,7 @@ body {
   font-family: 'Press Start 2P', cursive;
   font-size: 2em;
   color: white;
-  opacity: 0;
+  opacity: 1;
   visibility: visible;
 }
 a{

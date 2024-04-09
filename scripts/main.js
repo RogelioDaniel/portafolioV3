@@ -1,9 +1,11 @@
-let peopleTouch;
+import { People, Grass, MetroTracks, Wheel, Car, Building, Subway, Three  } from "./objectsThree.js";
 const counterDOM = document.getElementById("counter");
 const endDOM = document.getElementById("end");
-
 const scene = new THREE.Scene();
-
+const zoom = 1.5;
+const positionWidth = 42;
+const columns = 17;
+const boardWidth = positionWidth * columns;
 const distance = 700;
 const camera = new THREE.OrthographicCamera(
   window.innerWidth / -2,
@@ -26,14 +28,7 @@ camera.position.y = initialCameraPositionY;
 camera.position.x = initialCameraPositionX;
 camera.position.z = distance;
 
-const zoom = 1.5;
-
 const peopleSize = 15;
-
-const positionWidth = 42;
-const columns = 17;
-const boardWidth = positionWidth * columns;
-
 const stepTime = 200; // Miliseconds it takes for the people to take a step forward, backward, left or right
 
 let lanes;
@@ -45,24 +40,7 @@ let startMoving;
 let moves;
 let stepStartTimestamp;
 init();
-const carFrontTexture = new Texture(40, 80, [{ x: 0, y: 10, w: 30, h: 60 }]);
-const carBackTexture = new Texture(40, 80, [{ x: 10, y: 10, w: 30, h: 60 }]);
-const carRightSideTexture = new Texture(110, 40, [
-  { x: 10, y: 0, w: 50, h: 30 },
-  { x: 70, y: 0, w: 30, h: 30 },
-]);
-const carLeftSideTexture = new Texture(110, 40, [
-  { x: 10, y: 10, w: 50, h: 30 },
-  { x: 70, y: 10, w: 30, h: 30 },
-]);
 
-const subwayFrontTexture = new Texture(30, 30, [{ x: 15, y: 0, w: 10, h: 30 }]);
-const subwayRightSideTexture = new Texture(25, 30, [
-  { x: 0, y: 15, w: 10, h: 10 },
-]);
-const subwayLeftSideTexture = new Texture(25, 30, [
-  { x: 0, y: 5, w: 10, h: 10 },
-]);
 
 const generateLanes = () =>
   [-9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -83,20 +61,14 @@ const addLane = () => {
 };
 
 const people = new People();
-
-
-
-// Función para mostrar el cuadro de diálogo en la posición del mouse
-
 scene.add(people);
 
-
-hemiLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.6);
+var hemiLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.6);
 scene.add(hemiLight);
 
 const initialDirLightPositionX = -100;
 const initialDirLightPositionY = -100;
-dirLight = new THREE.DirectionalLight(0xffffff, 0.6);
+var dirLight = new THREE.DirectionalLight(0xffffff, 0.6);
 dirLight.position.set(initialDirLightPositionX, initialDirLightPositionY, 200);
 dirLight.castShadow = true;
 dirLight.target = people;
@@ -114,16 +86,13 @@ dirLight.shadow.camera.bottom = -d;
 // var helper = new THREE.CameraHelper( camera );
 // scene.add(helper)
 
-backLight = new THREE.DirectionalLight(0x000000, 0.4);
+var backLight = new THREE.DirectionalLight(0x000000, 0.4);
 backLight.position.set(200, 200, 50);
 backLight.castShadow = true;
 scene.add(backLight);
 
 const laneTypes = ["car", "subway", "forest"];
 const laneSpeeds = [2, 2.5, 3];
-const vechicleColors = [0xa52523, 0xbdb638, 0x78b14b];
-const threeHeights = [20, 45, 60];
-
 const initaliseValues = () => {
   lanes = generateLanes();
 
@@ -162,379 +131,6 @@ function init(){
 
   
 }
-function Texture(width, height, rects) {
-  const canvas = document.createElement("canvas");
-  canvas.width = width;
-  canvas.height = height;
-  const context = canvas.getContext("2d");
-  context.fillStyle = "#ffffff";
-  context.fillRect(0, 0, width, height);
-  context.fillStyle = "rgba(0,0,0,0.6)";
-  rects.forEach((rect) => {
-    context.fillRect(rect.x, rect.y, rect.w, rect.h);
-  });
-  return new THREE.CanvasTexture(canvas);
-}
-
-function Wheel() {
-  const wheel = new THREE.Mesh(
-    new THREE.BoxBufferGeometry(12 * zoom, 33 * zoom, 12 * zoom),
-    new THREE.MeshLambertMaterial({ color: 0x333333, flatShading: true })
-  );
-  wheel.position.z = 6 * zoom;
-  return wheel;
-}
-
-function Car() {
-  const car = new THREE.Group();
-
-  // Cargar el modelo OBJ del automóvil
-  const objLoader = new THREE.OBJLoader();
-  objLoader.load(
-    './assets/1399 Taxi.obj', // Ruta al archivo del modelo OBJ
-    (obj) => {
-      // Objeto cargado exitosamente
-      const scaleFactor = 1.3; // Factor de escala para hacer el objeto más pequeño
-      obj.scale.set(scaleFactor, scaleFactor, scaleFactor);
-
-      // Aplicar textura al material del objeto cargado
-      const textureLoader = new THREE.TextureLoader();
-      textureLoader.load(
-        './assets/1399 Taxi.png', // Ruta a la textura
-        (texture) => {
-          // Textura cargada exitosamente
-          // Aplicar la textura al material del objeto
-          obj.traverse((child) => {
-            if (child instanceof THREE.Mesh) {
-              child.material.map = texture;
-            }
-          });
-        },
-
-      );
-
-      car.rotation.y = -300; // Rotación en el eje Y
-      car.rotation.x = 190; // Rotación en el eje X
-      car.rotation.z = 0;
-
-      // Agregar el modelo OBJ al grupo del automóvil
-      car.add(obj);
-    },
-
-  );
-
-  // Ajustes adicionales si es necesario, como posición, sombras, etc.
-
-  return car;
-}
-
-
-function Subway() {
-  const subway = new THREE.Group();
-
-  // Cargar el modelo OBJ
-  const objLoader = new THREE.OBJLoader();
-  objLoader.load(
-    './assets/1377 Car.obj', // Ruta al archivo del modelo OBJ
-    (obj) => {
-      const textureLoader = new THREE.TextureLoader();
-      // Objeto cargado exitosamente
-textureLoader.load(
-        './assets/1377 Car.png', // Ruta a la textura
-        (texture) => {
-          // Textura cargada exitosamente
-          // Aplicar la textura al material del objeto
-          obj.traverse((child) => {
-            if (child instanceof THREE.Mesh) {
-              child.material.map = texture;
-            }
-          });
-      // Ajustar el tamaño del objeto
-      const scaleFactor = 1.5; // Factor de escala para hacer el objeto más pequeño
-      obj.scale.set(scaleFactor, scaleFactor, scaleFactor);
-      // Rotar el modelo en su eje Y y X
-      subway.rotation.y = -300; // Rotación en el eje Y
-      subway.rotation.x = 190; // Rotación en el eje X
-      subway.rotation.z = 0;
-      // Crear una textura
-
-      
-        },
-      );
-
-      subway.add(obj); // Agregar el modelo OBJ al grupo subway
-    },
-
-  );
-
-  return subway;
-}
-
-
-
-
-
-
-
-function Three() {
-  const three = new THREE.Group();
-
-  const trunk = new THREE.Mesh(
-    new THREE.BoxBufferGeometry(15 * zoom, 15 * zoom, 20 * zoom),
-    new THREE.MeshPhongMaterial({ color: 0x4d2926, flatShading: true })
-  );
-  trunk.position.z = 10 * zoom;
-  trunk.castShadow = true;
-  trunk.receiveShadow = true;
-  three.add(trunk);
-
-  height = threeHeights[Math.floor(Math.random() * threeHeights.length)];
-
-  const crown = new THREE.Mesh(
-    new THREE.BoxBufferGeometry(30 * zoom, 30 * zoom, height * zoom),
-    new THREE.MeshLambertMaterial({ color: 0x7aa21d, flatShading: true })
-  );
-  crown.position.z = (height / 2 + 20) * zoom;
-  crown.castShadow = true;
-  crown.receiveShadow = false;
-  three.add(crown);
-
-  return three;
-}
-
-
-function Building() {
-  const building = new THREE.Group();
-
-  // Cargar el modelo OBJ
-  const objLoader = new THREE.OBJLoader();
-  objLoader.load(
-    './assets/DonutStore.obj', // Ruta al archivo del modelo OBJ
-    (obj) => {
-      const textureLoader = new THREE.TextureLoader();
-      // Objeto cargado exitosamente
-textureLoader.load(
-        './assets/WindowsDonutStore.png', // Ruta a la textura
-        (texture) => {
-          // Textura cargada exitosamente
-          // Aplicar la textura al material del objeto
-          obj.traverse((child) => {
-            if (child instanceof THREE.Mesh) {
-              child.material.map = texture;
-            }
-          });      
-        },
-        
-      );
-      // Ajustar el tamaño del objeto
-      const scaleFactor = 20; // Factor de escala para hacer el objeto más pequeño
-      obj.scale.set(scaleFactor, scaleFactor, scaleFactor);
-      // Rotar el modelo en su eje Y y X
-      building.rotation.y = -300; // Rotación en el eje Y
-      building.rotation.x = -300; // Rotación en el eje X
-      building.rotation.z = 0;
-      building.position.z = 25 * zoom;
-   
-      building.add(obj); // Agregar el modelo OBJ al grupo subway
-    },
-
-  );
-
-  return building;
-}
-
-
-
-function People() {
-  const people = new THREE.Group();
-
-
-// Función para generar un color aleatorio en formato hexadecimal
-function getRandomColor() {
-  return Math.floor(Math.random() * 16777215);
-}
-
-// Función para generar dimensiones aleatorias para el cuerpo dentro del rango especificado
-function generateRandomBodySize() {
-  // Valores aleatorios para el tamaño del cuerpo dentro del rango de 10 a 30
-  const width = Math.random() * (30 - 10) + 10;
-  const height = Math.random() * (30 - 10) + 10;
-  const depth = Math.random() * (30 - 10) + 10;
-
-  return new THREE.Vector3(width * zoom, height * zoom, depth * zoom);
-}
-
-// Generar tamaño y color aleatorios para el cuerpo
-const bodySize = generateRandomBodySize();
-const bodyColor = getRandomColor();
-
-// Cuerpo
-const body = new THREE.Mesh(
-  new THREE.BoxBufferGeometry(bodySize.x, bodySize.y, bodySize.z),
-  new THREE.MeshPhongMaterial({ color: bodyColor, flatShading: true })
-);
-body.position.z = 10 * zoom;
-body.castShadow = true;
-body.receiveShadow = true;
-people.add(body);
-
-
- // Generar un color aleatorio
-function getRandomColor() {
-  return new THREE.Color(Math.random(), Math.random(), Math.random());
-}
-
-// Cabeza
-const head = new THREE.Mesh(
-  new THREE.SphereBufferGeometry(8 * zoom, 32, 32),
-  new THREE.MeshPhongMaterial({ color: 0xffccaa, flatShading: true })
-);
-head.position.z = 30 * zoom;
-head.castShadow = true;
-head.receiveShadow = false;
-people.add(head);
-
-// Función para generar cabello aleatorio detrás de la cabeza
-function generateRandomHair() {
-  // Valores aleatorios para las dimensiones del cabello dentro del rango de 4 a 6
-  const width = Math.random() * (6 - 2) + 3;
-  const height = Math.random() * (6 -2) + 3;
-  const depth = Math.random() * (6 - 2) + 3;
-
-  return new THREE.BoxBufferGeometry(width * zoom, height * zoom, depth * zoom);
-}
-
-// Generar cabello aleatorio y añadirlo detrás de la cabeza
-const randomHair = generateRandomHair();
-const hair = new THREE.Mesh(
-  randomHair,
-  new THREE.MeshPhongMaterial({ color: 0x886633, flatShading: true })
-);
-hair.position.x = 0 * zoom;
-hair.position.y = 0 * zoom;
-hair.position.z = 10 * zoom; // Ajustar la posición para que esté pegado a la cabeza
-head.add(hair); // Agregar el cabello como hijo de la cabeza
-  // Brazos
-  const armGeometry = new THREE.BoxBufferGeometry(3 * zoom, 15 * zoom, 10 * zoom);
-  const leftArm = new THREE.Mesh(armGeometry, new THREE.MeshPhongMaterial({ color: 0xffccaa }));
-  leftArm.position.set(-12 * zoom, 5 * zoom, 15 * zoom);
-  leftArm.castShadow = true;
-  leftArm.receiveShadow = true;
-  people.add(leftArm);
-
-  const rightArm = leftArm.clone();
-  rightArm.position.x *= -1;
-  people.add(rightArm);
-
-  // Piernas
-  const legGeometry = new THREE.BoxBufferGeometry(5 * zoom, 15 * zoom, 10 * zoom);
-  const leftLeg = new THREE.Mesh(legGeometry, new THREE.MeshPhongMaterial({ color: 0x000000 }));
-  leftLeg.position.set(-5 * zoom, -7 * zoom, 0);
-  leftLeg.castShadow = true;
-  leftLeg.receiveShadow = true;
-  people.add(leftLeg);
-
-  const rightLeg = leftLeg.clone();
-  rightLeg.position.x *= -1;
-  people.add(rightLeg);
- 
-  return people;
-}
-
-
-function MetroTracks() {
-  const metroTracks = new THREE.Group();
-  const platformWidth = 10;
-  // Texturas
-  const trackTexture = new THREE.TextureLoader().load('./assets/road.jpg');
-
-
-  // Función para crear secciones de las vías del metro con texturas
-  const createSectionWithTexture = (width, height, texture) => {
-    const geometry = new THREE.PlaneBufferGeometry(width, height);
-    const material = new THREE.MeshPhongMaterial({ map: texture });
-    return new THREE.Mesh(geometry, material);
-  };
-
-  // Sección central de las vías del metro con textura
-  const middleTrack = createSectionWithTexture(boardWidth * zoom, positionWidth * zoom, trackTexture);
-
-  middleTrack.receiveShadow = true;
-  metroTracks.add(middleTrack);
-
-  // Vía de la izquierda
-  const leftTrack = createSectionWithTexture(boardWidth * zoom, positionWidth * zoom, trackTexture);
-  leftTrack.position.x = -boardWidth * zoom;
-  metroTracks.add(leftTrack);
-
-  // Vía de la derecha
-  const rightTrack = createSectionWithTexture(boardWidth * zoom, positionWidth * zoom, trackTexture);
-  rightTrack.position.x = boardWidth * zoom;
-  metroTracks.add(rightTrack);
-
-  // Plataformas del metro a los lados de las vías con textura
-
-
-  return metroTracks;
-}
-
-
-
-function Grass() {
-  const grass = new THREE.Group();
-
-  // Función para crear una sección con textura
-  const createSection = (texture) => {
-      // Ajusta la escala de mapeo de textura en el material
-
-    const material = new THREE.MeshPhongMaterial({ map: texture });
-    return new THREE.Mesh(
-      new THREE.BoxBufferGeometry(
-        boardWidth * zoom,
-        positionWidth * zoom,
-        3 * zoom
-      ),
-      material
-    );
-  };
-
-  // Cargar las texturas
-  const textureLoader = new THREE.TextureLoader();
-  const middleTexture = textureLoader.load('./assets/pavement.jpg');
-  const leftTexture = textureLoader.load('./assets/gravel.jpg');
-  const rightTexture = textureLoader.load('./assets/gravel.jpg');
-
-  // Crear secciones con textura y agregarlas al grupo
-  const middle = createSection(middleTexture);
-  middle.receiveShadow = true;
-  grass.add(middle);
-
-  const left = createSection(leftTexture);
-  left.position.x = -boardWidth * zoom;
-  grass.add(left);
-
-  const right = createSection(rightTexture);
-  right.position.x = boardWidth * zoom;
-  grass.add(right);
-
-  grass.position.z = 1.5 * zoom;
-
-  return grass;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 function Lane(index) {
   this.index = index;
@@ -552,11 +148,11 @@ function Lane(index) {
     case "forest": {
       this.mesh = new Grass();
       this.occupiedPositions = new Set();
-      let usePeople = false; // Variable para alternar entre Three y People
+      let usePeople = false; 
     
-      this.threes = [1, 2, 3, 4].map(() => {
-        const object = usePeople ? new Building () : new Three(); // Usar People o Three según el valor de usePeople
-        let position;
+      this.threes = [1,2,3].map(() => {
+        const object = usePeople ? new Building () : new People();      
+        let position; 
         do {
           position = Math.floor(Math.random() * columns);
         } while (this.occupiedPositions.has(position));
@@ -565,7 +161,7 @@ function Lane(index) {
           (position * positionWidth + positionWidth / 2) * zoom -
           (boardWidth * zoom) / 2;
         this.mesh.add(object);
-        usePeople = !usePeople; // Alternar el valor de usePeople para la próxima iteración
+        usePeople = !usePeople; 
         return object;
       });
       break;
@@ -863,7 +459,7 @@ function animate(timestamp) {
         break;
       }
       case "backward": {
-        positionY = currentLane * positionWidth * zoom - moveDeltaDistance;
+        var positionY = currentLane * positionWidth * zoom - moveDeltaDistance;
         camera.position.y = initialCameraPositionY + positionY;
         dirLight.position.y = initialDirLightPositionY + positionY;
         people.position.y = positionY;
@@ -944,50 +540,6 @@ function animate(timestamp) {
 
 requestAnimationFrame(animate);
 
-function getFirstObjectWithName(event, window, camera, scene, name){
-    
-  const raycaster = new THREE.Raycaster();
-  const getFirstValue = true;
-
-  const mousePointer = getMouseVector2(event, window);
-const intersections = checkRayIntersections(mousePointer, camera, raycaster, scene, getFirstValue);
-const wheelList = getObjectsByName(intersections, name);
-
-  if(typeof wheelList[0] !== 'undefined'){
-      return wheelList[0]
-  }
-
-  return null;
-}
-
-function getMouseVector2(event, window){
-  let mousePointer = new THREE.Vector2()
-
-  mousePointer.x = (event.clientX / window.innerWidth) * 2 - 1;
-mousePointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
-
-  return mousePointer;
-}
-
-function checkRayIntersections(mousePointer, camera, raycaster, scene) {
-  raycaster.setFromCamera(mousePointer, camera);
-
-  let intersections = raycaster.intersectObjects(scene.children, true);
-
-  return intersections;
-}
-
-function getObjectsByName(objectList, name){
-  const wheelObjects = [];
-  
-  objectList.forEach((object) => {
-      const objectName = object.object.name || "Unnamed Object";
-      objectName.includes(name) ? wheelObjects.push(object.object) : null;
-  });
-
-  return wheelObjects;
-}
-
 // URL de la API de GitHub para obtener la lista de repositorios del usuario
 const apiUrl = 'https://api.github.com/users/RogelioDaniel/repos';
 
@@ -1011,42 +563,6 @@ fetch(apiUrl)
     });
   })
   .catch(error => console.error('Error fetching data:', error));
-
-// Función para cerrar el contenedor de proyectos cuando se hace clic fuera de él
-function closeProjectsContainer(event) {
-  var projectsContainer = document.getElementById('projects-container');
-  // Verificar si el clic ocurrió fuera del contenedor de proyectos
-  if (!projectsContainer.contains(event.target)) {
-    projectsContainer.style.display = 'none'; // Ocultar el contenedor
-    // Remover el event listener para evitar múltiples cierres si se hace clic nuevamente fuera del contenedor
-    document.removeEventListener('click', closeProjectsContainer);
-  }
-}
-
-
-function toggleProjectsContainer() {
-  setTimeout(function() {
-    var projectsContainer = document.getElementById('projects-container');
-    if (projectsContainer.style.display === 'none' || projectsContainer.style.display === '') {
-        projectsContainer.style.display = 'block';
-        // Realiza aquí cualquier otra acción que necesites al abrir el contenedor de proyectos
-        fetch('https://api.github.com/users/RogelioDaniel/repos')
-        .then(response => response.json())
-        .then(data => {
-         
-          data.forEach(repo => {
-            var repoLink = document.createElement('a');
-            repoLink.href = repo.html_url;
-            repoLink.textContent = repo.name;
-          });
-        })
-        .catch(error => console.error('Error fetching data:', error));
-    } else {
-        projectsContainer.style.display = 'none';
-        // Realiza aquí cualquier otra acción que necesites al cerrar el contenedor de proyectos
-    }
-}, 0);
-}
 
 
   
