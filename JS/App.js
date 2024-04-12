@@ -16,15 +16,15 @@ function App() {
   u.setPixelRatio(window.devicePixelRatio), u.setSize(d, p);
 
   let w = d / p,
-    l = new THREE.PerspectiveCamera(50, w, 0.1, 1e3);
+    camera = new THREE.PerspectiveCamera(50, w, 0.1, 1e3);
 
-  l.position.setZ(100),
+  camera.position.setZ(100),
     addEventListener("resize", function () {
       (d = window.innerWidth),
         (p = window.innerHeight),
         u.setSize(d, p),
-        (l.aspect = d / p),
-        l.updateProjectionMatrix();
+        (camera.aspect = d / p),
+        camera.updateProjectionMatrix();
     });
 
   const E = new THREE.PointLight(16772574, 0.7),
@@ -34,7 +34,7 @@ function App() {
     
   function render() {
 
-    u.render( c, l );
+    u.render( c, camera );
 
   }
   function loadModel() {
@@ -47,7 +47,7 @@ function App() {
 
     object.position.y = 0;
     object.rotation.x = -50;
-    object.scale.setScalar( 0.9 );
+    object.scale.setScalar( 5 );
 
     c.add( object );
     render();
@@ -57,7 +57,7 @@ function App() {
   }
   const manager = new THREE.LoadingManager( loadModel );
   const textureLoader = new THREE.TextureLoader( manager );
-  const texture = textureLoader.load( './assets/nave2.png' );
+  const texture = textureLoader.load( './assets/earth.jpg' );
   texture.colorSpace = THREE.SRGBColorSpace;
 
   const textureLoaderAsteroid = new THREE.TextureLoader( manager );
@@ -78,20 +78,16 @@ function App() {
   }
 
   const m = new THREE.OBJLoader( manager );
-  m.load( './assets/nave2.obj', function ( obj ) {
+  m.load( './assets/earth.obj', function ( obj ) {
 
     object = obj;
     animate();
   },onProgress );
 
-  const S = new THREE.Group();
 
-  //S.add(m),
-
-    c.add(S),
     Array(150).fill().forEach(function () {
       // Generar posiciones aleatorias
-      const [x, y] = Array(2).fill().map(() => THREE.MathUtils.randFloatSpread(250));
+      const [x, y] = Array(2).fill().map(() => THREE.MathUtils.randFloatSpread(500));
   
       // Cargar el modelo OBJ
       const objLoader = new THREE.OBJLoader();
@@ -154,7 +150,7 @@ function App() {
     (function e() {
       //(f.rotation.x -= 0.0022),
        // (f.rotation.y += 0.013),
-        u.render(c, l),
+        u.render(c, camera),
         requestAnimationFrame(e);
     })(),
     gsap
@@ -196,18 +192,18 @@ function App() {
       .from(n.querySelector("h1"), { opacity: 0 }, "<+=0.00")
       .from(n.querySelector("h1 span"), { yPercent: 50 }, "<+=0.00")
       .to(
-        l,
+        camera,
         {
           fov: 150,
           onUpdate: function () {
-            l.updateProjectionMatrix();
+            camera.updateProjectionMatrix();
           },
         },
         "<+=0.00"
       )
-      .to(l.position, { z: 50 }, "<+=0.00")
-      .to(l.rotation, { y: 0.13 * Math.PI, z: 0.7 * Math.PI }, "<+=0.00")
-      .to(S.rotation, { y: 2.2 * Math.PI }, "<+=0.00");
+      .to(camera.position, { z: 50 }, "<+=0.00") 
+      .to(camera.position, { y: 25 }, "<+=0.00") //camera scroll
+      .to(camera.rotation, { y: 0}, "<+=0.00")
 
 
 /// segundo parrafo
@@ -239,9 +235,10 @@ function App() {
       .to(n, { y: -310, opacity: 0 }, "<+=0.00")
       .from(nn.querySelector("h1"), { opacity: 0 }, "<+=0.00")
       .from(nn.querySelector("h1 span"), { yPercent: 50 }, "<+=0.00")
+      
 
   const T = new THREE.Group();
-  T.add(l),
+  T.add(camera),
     c.add(T),
     window.addEventListener("mousemove", function (e) {
       let t = window.innerWidth,
@@ -274,7 +271,7 @@ window.onload = () => {
 function animate() {
   // Rotar el objeto
 
-  object.rotation.y += 0.005;
+  object.rotation.y += 0.002;
 
   // Solicitar el próximo cuadro de animación
   requestAnimationFrame(animate);

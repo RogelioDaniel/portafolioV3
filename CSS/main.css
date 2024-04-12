@@ -130,6 +130,13 @@ body {
   display: inline-flex;
 }
 
+.Wrapper4 h1 {
+  font-size: var(--FontH2);
+}
+.Wrapper4 h1 span {
+  display: inline-flex;
+}
+
 /* Proyects */
 img {
   width: 100%;
@@ -268,6 +275,9 @@ img {
   .Wrapper3 h1 {
     font-size: var(--FontH1);
   }
+  .Wrapper4 h1 {
+    font-size: var(--FontH1);
+  }
 }
 @media (max-width: 480px) {
   :root {
@@ -299,6 +309,9 @@ img {
     font-size: var(--FontH4);
   }
   .Wrapper3 h1 {
+    font-size: var(--FontH4);
+  }
+  .Wrapper4 h1 {
     font-size: var(--FontH4);
   }
 }
