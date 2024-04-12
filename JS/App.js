@@ -15,9 +15,9 @@ function App() {
   u.setPixelRatio(window.devicePixelRatio), u.setSize(d, p);
 
   let w = d / p,
-    l = new THREE.PerspectiveCamera(100, w, 0.1, 1e3);
+    l = new THREE.PerspectiveCamera(50, w, 0.1, 1e3);
 
-  l.position.setZ(31),
+  l.position.setZ(50),
     addEventListener("resize", function () {
       (d = window.innerWidth),
         (p = window.innerHeight),
@@ -48,7 +48,7 @@ function App() {
 
     } );
 
-    object.position.y = - 0.95;
+    object.position.y = -10;
     object.scale.setScalar( 0.6 );
     c.add( object );
     render();
@@ -77,7 +77,7 @@ function App() {
   m.load( './assets/nave.obj', function ( obj ) {
 
     object = obj;
-
+    animate();
   },onProgress );
 
   const S = new THREE.Group();
@@ -85,40 +85,60 @@ function App() {
   //S.add(m),
 
     c.add(S),
-    Array(100)
-      .fill()
-      .forEach(function () {
-        const e = new THREE.Mesh(
-            new THREE.SphereGeometry(0.22, 13, 13),
-            new THREE.MeshPhysicalMaterial({ color: s, roughness: 0.13 })
-          ),
-          [ o, a] = Array(2)
-            .fill()
-            .map(() => THREE.MathUtils.randFloatSpread(220));
-
-        e.position.set(o, a),
-          (e.castShadow = true),
-          (e.receiveShadow = true);
-
-        const n = new THREE.Group();
-        n.add(e),
-          c.add(n),
-          E.position.set(-22, 22, -22),
-          n.add(E),
-          gsap
-            .timeline({
-              defaults: { duration: 7, ease: "power3.inOut" },
-              repeat: -1,
-              repeatDelay: 0,
-              yoyo: 12,
-            })
-            .to(e.position, { z: "+=31", y: "+=31" }, "<+=0.00")
-            .to(
-              n.rotation,
-              { y: 0.31 * Math.PI, x: 0.13 * Math.PI, z: 0.22 * Math.PI },
-              "<+=0.00"
-            );
-      }),
+    Array(400).fill().forEach(function () {
+      // Generar posiciones aleatorias
+      const [x, y] = Array(2).fill().map(() => THREE.MathUtils.randFloatSpread(220));
+  
+      // Cargar el modelo OBJ
+      const objLoader = new THREE.OBJLoader();
+      objLoader.load(
+          './assets/start.obj', // Ruta al archivo del modelo OBJ
+          function (obj) {
+              // Objeto cargado exitosamente
+              // Recorre todas las partes del modelo y aplica los materiales
+              obj.traverse(function (child) {
+                  if (child instanceof THREE.Mesh) {
+                      // Configura el material para cada parte del modelo
+                      const material = new THREE.MeshPhysicalMaterial({ color: s, roughness: 0.13 });
+                      // Aplica el material a la parte del modelo
+                      child.material = material;
+                  }
+              });
+  
+              // Crea un grupo para el objeto cargado
+              const group = new THREE.Group();
+              obj.scale.setScalar( 0.8 );
+              group.add(obj);
+  
+              // Establecer la posición del grupo
+              group.position.set(x, y, -20);
+  
+              // Agrega el grupo a tu escena
+              c.add(group);
+  
+              // Añade las animaciones
+              gsap.timeline({
+                  defaults: { duration: 7, ease: "power3.inOut" },
+                  repeat: -1,
+                  repeatDelay: 0,
+                  yoyo: 1,
+              }).to(group.position, { z: "+=31", y: "+=31" }, "<+=0.00").to(
+                  group.rotation,
+                  { y: 0.31 * Math.PI, x: 0.13 * Math.PI, z: 0.22 * Math.PI },
+                  "<+=0.00"
+              );
+          },
+          // Función de progreso (opcional)
+          function (xhr) {
+              console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+          },
+          // Función de manejo de errores (opcional)
+          function (error) {
+              console.error('Error loading OBJ:', error);
+          }
+      );
+  });
+  
     (u.shadowMap.enabled = true),
     (u.shadowMap.type = THREE.PCFSoftShadowMap),
     (E.castShadow = true),
@@ -218,3 +238,11 @@ function App() {
 window.onload = () => {
   App(), gsap.to("body", { opacity: 1, duration: 0.5 });
 };
+function animate() {
+  // Rotar el objeto
+
+  object.rotation.y += 0.005;
+
+  // Solicitar el próximo cuadro de animación
+  requestAnimationFrame(animate);
+}
