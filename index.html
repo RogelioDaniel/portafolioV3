@@ -75,10 +75,18 @@
       if (scrollIndicator) {
         if (isMobileDevice()) {
           scrollIndicator.textContent = 'Push Here';
+  
+          // Prevent scrolling on touch devices
+          window.addEventListener('touchmove', preventDefaultScroll, { passive: false });
         } else {
           scrollIndicator.textContent = 'Scroll Down';
         }
       }
+    }
+  
+    // Function to prevent default scrolling behavior
+    function preventDefaultScroll(event) {
+      event.preventDefault();
     }
   
     // Call the function when the DOM content is loaded
@@ -86,6 +94,7 @@
       updateScrollIndicator();
     });
   </script>
+  
   
 </body>
 
