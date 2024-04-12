@@ -3,6 +3,7 @@ function App() {
     o = document.querySelector(".ScrollDown"),
     a = document.querySelector(".TriggerClass"),
     n = document.querySelector(".Wrapper2"),
+    nn = document.querySelector(".Wrapper3"),
     r = document.querySelector(".CanvasElementClass"),
     i = (new THREE.Color("#ff375f"), new THREE.Color("#ffd60a")),
     s = new THREE.Color("#ffffff"),
@@ -29,11 +30,7 @@ function App() {
   const E = new THREE.PointLight(16772574, 0.7),
     h = new THREE.AmbientLight(16777215, 0.6);
   c.add(h);
-  const y = new THREE.TextureLoader().load("./Img/FrostTexture.jpg");
-  (y.wrapS = THREE.RepeatWrapping),
-    (y.wrapT = THREE.RepeatWrapping),
-    (y.anisotropy = u.capabilities.getMaxAnisotropy()),
-    y.repeat.set(3, 3);
+
     
   function render() {
 
@@ -207,6 +204,38 @@ function App() {
       .to(l.position, { z: 50 }, "<+=0.00")
       .to(l.rotation, { y: 0.13 * Math.PI, z: 0.7 * Math.PI }, "<+=0.00")
       .to(S.rotation, { y: 2.2 * Math.PI }, "<+=0.00");
+
+
+/// segundo parrafo
+      gsap
+      .timeline({
+        defaults: { ease: "none" },
+        scrollTrigger: {
+          trigger: a,
+          start: "0% 0%",
+          end: "100% 0%",
+          scrub: 5.2,
+
+          onUpdate: function (e) {
+            e.progress > 0.031
+              ? gsap.to(o.querySelector("span"), {
+                  opacity: 0,
+                  duration: 1.3,
+                  ease: "power3.out",
+                })
+              : gsap.to(o.querySelector("span"), {
+                  opacity: 1,
+                  duration: 1.3,
+                  ease: "power3.out",
+                });
+          },
+        },
+      })
+      .to(e, { y: -700 }, "<+=0.00")
+      .to(o, { y: -310, opacity: 0 }, "<+=0.00")
+      .from(nn.querySelector("h1"), { opacity: 0 }, "<+=0.00")
+      .from(nn.querySelector("h1 span"), { yPercent: 50 }, "<+=0.00")
+
   const T = new THREE.Group();
   T.add(l),
     c.add(T),

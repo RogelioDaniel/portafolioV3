@@ -121,6 +121,13 @@ body {
 .Wrapper2 h1 span {
   display: inline-flex;
 }
+
+.Wrapper3 h1 {
+  font-size: var(--FontH2);
+}
+.Wrapper3 h1 span {
+  display: inline-flex;
+}
 @media (max-width: 1920px) {
   :root {
     --FontH1: 14.9536vw;
@@ -186,6 +193,9 @@ body {
   .Wrapper2 h1 {
     font-size: var(--FontH1);
   }
+  .Wrapper3 h1 {
+    font-size: var(--FontH1);
+  }
 }
 @media (max-width: 480px) {
   :root {
@@ -214,6 +224,9 @@ body {
     font-size: var(--FontParagraph);
   }
   .Wrapper2 h1 {
+    font-size: var(--FontH4);
+  }
+  .Wrapper3 h1 {
     font-size: var(--FontH4);
   }
 }
