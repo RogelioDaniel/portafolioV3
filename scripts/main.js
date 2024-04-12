@@ -1,4 +1,6 @@
-import { People, Grass, MetroTracks, Wheel, Car, Building, Subway, Three  } from "./objectsThree.js";
+import { People, Grass, MetroTracks, Car, Building, Subway } from "./objectsThree.js";
+import GifLoader from 'https://cdn.skypack.dev/three-gif-loader';
+
 const counterDOM = document.getElementById("counter");
 const endDOM = document.getElementById("end");
 const scene = new THREE.Scene();
@@ -16,7 +18,7 @@ const camera = new THREE.OrthographicCamera(
   10000
 );
 
-camera.rotation.x = (25 * Math.PI) / 180;
+camera.rotation.x = (50 * Math.PI) / 180;
 camera.rotation.y = (20 * Math.PI) / 180;
 camera.rotation.z = (10 * Math.PI) / 180;
 
@@ -40,6 +42,10 @@ let startMoving;
 let moves;
 let stepStartTimestamp;
 init();
+
+function init(){
+
+}
 
 
 const generateLanes = () =>
@@ -127,12 +133,51 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 
 document.body.appendChild(renderer.domElement);
 
-function init(){
+function gifImagen(){
+  // Instancia el GifLoader
+const loader = new GifLoader();
 
-  
+// Carga la imagen GIF
+loader.load(
+    // URL del recurso
+    './assets/image2.gif',
+
+    // Función de callback onLoad
+    function (texture) {
+        // Crea una geometría para el plano
+        const geometry = new THREE.PlaneBufferGeometry(100, 5); // Ajusta el tamaño del plano según tus necesidades
+
+        // Crea un material usando la textura cargada
+        const material = new THREE.MeshBasicMaterial({
+            map: texture,
+            transparent: false
+        });
+
+        // Crea un objeto Mesh utilizando la geometría y el material
+        const plane = new THREE.Mesh(geometry, material);
+
+        // Establece la posición del objeto en (0, 0, 10)
+        plane.position.set(0, 0, 10); // Ajusta la posición según tus necesidades
+        
+
+    },
+
+    // Función de callback onProgress (opcional)
+    function (xhr) {
+        console.log(`${(xhr.loaded / xhr.total * 100)}% cargado`);
+    },
+
+    // Función de callback onError (opcional)
+    function (error) {
+        console.error('Se produjo un error', error);
+    }
+    );
+
 }
 
+
 function Lane(index) {
+  
   this.index = index;
   this.type =
     index <= 0
@@ -453,9 +498,10 @@ function animate(timestamp) {
           currentLane * positionWidth * zoom + moveDeltaDistance;
         camera.position.y = initialCameraPositionY + positionY;
         dirLight.position.y = initialDirLightPositionY + positionY;
-        people.position.y = positionY; // initial people position is 0
-
+         // initial people position is 0
         people.position.z = jumpDeltaDistance;
+        
+        people.position.z = positionY;
         break;
       }
       case "backward": {
@@ -496,6 +542,8 @@ function animate(timestamp) {
       switch (moves[0]) {
         case "forward": {
           currentLane++;
+          people.position.z+=10;
+          camera.position.z +=50;
           counterDOM.innerHTML = currentLane;
           break;
         }

@@ -1,93 +1,64 @@
 <!DOCTYPE html>
+<html lang="en">
+
 <head>
-  <link rel="stylesheet" href="styles/preloader.css">
-  <link rel="stylesheet" href="styles/menu.css">
-  <link rel="stylesheet" href="styles/style.css">
-    <title> Portfolio V3</title>
-    
+  <title>Portfolio V3</title>
+  <meta name="description" content="Portfolio V3">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Main.CSS -->
+  <link rel="stylesheet" href="CSS/preloader.css">
+  <link rel="stylesheet" href="CSS/main.css">
+
 </head>
-
-<body>
-
   <div id="preloader">
     <div id="loader"></div>
   </div>
-<div id="counter">0</div>
-    
-<div id="controlls">
-  <div>
-    <button id="forward">
-      <svg width="30" height="30" viewBox="0 0 10 10">
-        <g transform="rotate(0, 5,5)">
-          <path d="M5,4 L7,6 L3,6 L5,4" />
-        </g>
-      </svg>
-    </button>
-    <button id="left">
-      <svg width="30" height="30" viewBox="0 0 10 10">
-        <g transform="rotate(-90, 5,5)">
-          <path d="M5,4 L7,6 L3,6 L5,4" />
-        </g>
-      </svg>
-    </button>
-    <button id="backward">
-      <svg width="30" height="30" viewBox="0 0 10 10">
-        <g transform="rotate(180, 5,5)">
-          <path d="M5,4 L7,6 L3,6 L5,4" />
-        </g>
-      </svg>
-    </button>
-    <button id="right">
-      <svg width="30" height="30" viewBox="0 0 10 10">
-        <g transform="rotate(90, 5,5)">
-          <path d="M5,4 L7,6 L3,6 L5,4" />
-        </g>
-      </svg>
-    </button>
-  </div>
-</div>
+<body style="opacity: 1;">
 
-<div id="end">
-  <button id="retry">Retry</button>
-</div>
+  <!-----------------------------------TriggerClass----------------------------------->
+  <div class="Wrapper TriggerClass">
 
-<div id="menu">
-  <div class="menu-item" onclick="moveIndicator(this)">
-    <a href="https://wa.me/5617075485" target="_blank">Contact</a>
-    <div class="indicator-ball"></div>
-  </div>
-  
-  <div class="menu-item">
-    <a href="https://drive.google.com/file/d/1a_HR-hlMp1yj3uIWpzM3LNz1HsGCqdXv/view?usp=drive_link" target="_blank">Cv</a>
-    <div class="indicator-ball"></div>
-  </div>
-  
-  <div class="menu-item" onclick="toggleProjectsContainer()">
-    <a>Projects</a>
-    <div id="projects-container" class="projects-container">
+    <!------------Canvas------------->
+    <div class="CanvasWrap">
+      <Canvas class="CanvasElementClass"></Canvas>
     </div>
-    
-    <div class="indicator-ball"></div>
+    <!------------/Canvas------------->
+
+    <!------------Title------------->
+    <h1 class="Title">Rogelio</h1>
+    <!------------/Title------------->
+
+
+    <!------------/CodeBy------------->
+
+    <!------------ScrollDown------------->
+    <div class="ScrollDown">
+      <h1><span>Scroll Down</span></h1>
+    </div>
+    <!------------/ScrollDown------------->
+
   </div>
-  
-  
-</div>
-<div id="popup-dialog" style="display: none;">
-</div>
+  <!-----------------------------------/TriggerClass----------------------------------->
 
+  <!-----------------------------------Wrapper----------------------------------->
+  <div class="Wrapper Wrapper2">
+    <h1>THREE.<span>JS</span></h1>
+  </div>
+  <!-----------------------------------/Wrapper----------------------------------->
+
+  <!-- THREE.JS -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.139.0/build/three.min.js"></script>
+  <!-- OrbitControls.js -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.139.0/examples/js/controls/OrbitControls.js"></script>
+  <!-- GSAP.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+  <!-- ScrollTrigger.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
+  <script src="JS/OBJLoader.js"></script>
+  <!-- App.js -->
+  <script src="JS/preloader.js"></script>
+  <script src="JS/App.js"></script>
 </body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r79/three.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/stats.js/r16/Stats.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/18.6.4/tween.umd.js"></script>
-<script src="https://rawgithub.com/dataarts/dat.gui/master/build/dat.gui.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/loaders/GLTFLoader.js"></script>
-<script src="scripts/OBJLoader.js"></script>
-<script src="scripts/preloader.js"></script>
-<script src="scripts/popup.js"></script>
-<script type="module" src="scripts/main.js"></script>
-<script src="objectsThree.js"></script>
-<script type="application/javascript" src="scripts/ApiGitHub.js"></script>
-<script src="scripts/menu.js"></script>
-
 
 </html>
