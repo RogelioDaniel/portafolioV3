@@ -33,7 +33,7 @@
     <!------------/CodeBy------------->
 
     <!------------ScrollDown------------->
-    <div class="ScrollDown">
+    <div id="button" class="ScrollDown">
       <h1><span>Scroll Down</span></h1>
     </div>
     <!------------/ScrollDown------------->
@@ -62,6 +62,31 @@
   <!-- App.js -->
   <script src="JS/preloader.js"></script>
   <script src="JS/App.js"></script>
+
+  <script>
+    // Function to detect if the device is a mobile
+    function isMobileDevice() {
+      return /Mobi|Android/i.test(navigator.userAgent);
+    }
+  
+    // Function to update scroll indicator based on device type
+    function updateScrollIndicator() {
+      const scrollIndicator = document.getElementById('button');
+      if (scrollIndicator) {
+        if (isMobileDevice()) {
+          scrollIndicator.textContent = 'Push Here';
+        } else {
+          scrollIndicator.textContent = 'Scroll Down';
+        }
+      }
+    }
+  
+    // Call the function when the DOM content is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      updateScrollIndicator();
+    });
+  </script>
+  
 </body>
 
 </html>
