@@ -18,7 +18,7 @@ function App() {
   let w = d / p,
     l = new THREE.PerspectiveCamera(50, w, 0.1, 1e3);
 
-  l.position.setZ(50),
+  l.position.setZ(100),
     addEventListener("resize", function () {
       (d = window.innerWidth),
         (p = window.innerHeight),
@@ -45,8 +45,8 @@ function App() {
 
     } );
 
-    object.position.y = -10;
-    object.scale.setScalar( 0.6 );
+    object.position.y = 0;
+    object.scale.setScalar( 0.5 );
     c.add( object );
     render();
 
@@ -55,7 +55,7 @@ function App() {
   }
   const manager = new THREE.LoadingManager( loadModel );
   const textureLoader = new THREE.TextureLoader( manager );
-  const texture = textureLoader.load( './assets/nave.png' );
+  const texture = textureLoader.load( './assets/nave2.png' );
   texture.colorSpace = THREE.SRGBColorSpace;
     
     
@@ -71,7 +71,7 @@ function App() {
   }
 
   const m = new THREE.OBJLoader( manager );
-  m.load( './assets/nave.obj', function ( obj ) {
+  m.load( './assets/nave2.obj', function ( obj ) {
 
     object = obj;
     animate();
@@ -156,8 +156,8 @@ function App() {
     gsap
       .timeline({
         defaults: {
-          duration: 1.3,
-          ease: "power3.inOut",
+          duration: 2.3,
+          ease: "elastic.inOut",
           stagger: { from: "end", amount: 0.7 },
         },
       })
@@ -165,7 +165,7 @@ function App() {
       .to(m.rotation, { x: 1 * -Math.PI }, "<+=0.00"),
     gsap
       .timeline({
-        defaults: { ease: "none" },
+        defaults: { ease: "expoScale(0.5,7,none)" },
         scrollTrigger: {
           trigger: a,
           start: "0% 0%",
@@ -231,8 +231,8 @@ function App() {
           },
         },
       })
-      .to(e, { y: -700 }, "<+=0.00")
-      .to(o, { y: -310, opacity: 0 }, "<+=0.00")
+      .to(n, { y: -700 }, "<+=0.00")
+      .to(n, { y: -310, opacity: 0 }, "<+=0.00")
       .from(nn.querySelector("h1"), { opacity: 0 }, "<+=0.00")
       .from(nn.querySelector("h1 span"), { yPercent: 50 }, "<+=0.00")
 

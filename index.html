@@ -14,7 +14,7 @@
   <div id="preloader">
     <div id="loader"></div>
   </div>
-<body style="opacity: 1;">
+<body style="opacity: 0;">
 
   <!-----------------------------------TriggerClass----------------------------------->
   <div class="Wrapper TriggerClass">
@@ -33,7 +33,7 @@
     <!------------/CodeBy------------->
 
     <!------------ScrollDown------------->
-    <div id="button" class="ScrollDown">
+    <div class="ScrollDown">
       <h1><span>Scroll Down</span></h1>
     </div>
     <!------------/ScrollDown------------->
@@ -50,6 +50,53 @@
   <div class="Wrapper Wrapper3">
     <h1>THREE.<span>JS</span></h1>
   </div>
+
+  <div class="Wrapper Wrapper4">
+    <h1>My personal <span>projects</span></h1>
+  </div>
+  <div class="container">
+    <div class="cont-items">
+      <div class="icon"><i class="fa-solid fa-heart fa-xl"></i>
+        <img src="./assets/logo.png">
+          <p>Flypbook</p>
+          
+      </div>
+      <div class="video-container">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/TfzRqjLlNOY" frameborder="0" allowfullscreen></iframe>
+        <p>App using Flutter in order to read English lectures</p>
+      </div>
+    </div>
+  
+    <div class="cont-items">
+      <div class="icon"><i class="fa-solid fa-heart fa-xl"></i>
+        <img src="./assets/spartan.png">
+          <p>Spartan</p>          
+      </div>
+      <div class="video-container">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/5CPgaFAQ9fU" frameborder="0" allowfullscreen></iframe>
+        <p>Game about Spartan battle using Unity</p>
+    </div>
+    
+    <div class="cont-items">
+      <div class="icon"><i class="fa-solid fa-heart fa-xl"></i>
+        <p>Small title</p>
+      </div>
+      <img src="https://images.unsplash.com/photo-1580757468214-c73f7062a5cb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1632&q=80">
+    </div>
+    <div class="cont-items">
+      <div class="icon"><i class="fa-solid fa-heart fa-xl"></i>
+        <p>Small title</p>
+      </div>
+      <img src="https://images.unsplash.com/photo-1588002906804-8eba97798fca?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"></img>
+    </div>
+    <div class="cont-items">
+      <div class="icon"><i class="fa-solid fa-heart fa-xl"></i>
+        <p>Small title</p>
+      </div>
+      <img src="https://images.unsplash.com/photo-1595835018349-198460e1d309?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1631&q=80"</img>
+    </div>
+
+ 
   <!-- THREE.JS -->
   <script src="https://cdn.jsdelivr.net/npm/three@0.139.0/build/three.min.js"></script>
   <!-- OrbitControls.js -->
@@ -71,16 +118,14 @@
   
     // Function to update scroll indicator based on device type
     function updateScrollIndicator() {
-      const scrollIndicator = document.getElementById('button');
+      const scrollIndicator = document.querySelector('.ScrollDown');
       if (scrollIndicator) {
         if (isMobileDevice()) {
           scrollIndicator.textContent = 'Push Here';
   
           // Prevent scrolling on touch devices
           window.addEventListener('touchmove', preventDefaultScroll, { passive: false });
-        } else {
-          scrollIndicator.textContent = 'Scroll Down';
-        }
+        } 
       }
     }
   
@@ -94,6 +139,7 @@
       updateScrollIndicator();
     });
   </script>
+  
   
   
 </body>

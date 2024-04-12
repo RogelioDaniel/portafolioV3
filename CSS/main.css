@@ -65,6 +65,7 @@ a {
 body {
   background: black;
 }
+
 .Wrapper {
   position: relative;
   width: 100%;
@@ -128,6 +129,77 @@ body {
 .Wrapper3 h1 span {
   display: inline-flex;
 }
+
+/* Proyects */
+img {
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+  z-index: -1;
+  grid-area: 1/1;
+  object-fit: cover;
+}
+
+/** container **/
+.container {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  z-index: 1;
+  gap: 20px;
+}
+
+/** cards **/
+.cont-items {
+  color: white;
+  background-color: rgba(255, 255, 255, 0.2);
+  height: 90vh;
+  width: 150px;
+  border: solid 5px;
+  border-color: black;
+  border-radius: 200px;
+  overflow: hidden;
+  display: grid;
+  transition: border-radius 500ms, opacity 500ms, width 500ms;
+  user-select: none;
+  isolation: isolate;
+
+  justify-content: center;
+}
+.video-container p{
+  width: 100%; /* Ajustar al ancho máximo */
+  max-width: 560px; /* Ajustar según el ancho deseado del video */
+  margin-top: 20px; 
+  align-items: center;
+  justify-content: center;
+}
+.container:hover > .cont-items {
+  opacity: 0.3;
+}
+
+.container:hover > .cont-items:hover {
+  opacity: 1;
+  width: 90vw;
+  border-radius: 50px;
+}
+
+/** icon **/
+.icon {
+  width: 100px;
+  height: 100px;
+  margin-inline: auto;
+  border-radius: 50px;
+  color: black;
+  background-color: rgba(255, 255, 255, 0.6);
+  text-align: center;
+  grid-area: 1/1;
+  transition: width 1000ms;
+  translate: 0 20px;
+}
+
+
+
+/* Responsive */
 @media (max-width: 1920px) {
   :root {
     --FontH1: 14.9536vw;
