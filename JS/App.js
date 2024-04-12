@@ -46,7 +46,9 @@ function App() {
     } );
 
     object.position.y = 0;
-    object.scale.setScalar( 0.5 );
+    object.rotation.x = -50;
+    object.scale.setScalar( 0.9 );
+
     c.add( object );
     render();
 
@@ -57,6 +59,11 @@ function App() {
   const textureLoader = new THREE.TextureLoader( manager );
   const texture = textureLoader.load( './assets/nave2.png' );
   texture.colorSpace = THREE.SRGBColorSpace;
+
+  const textureLoaderAsteroid = new THREE.TextureLoader( manager );
+  const textureAsteroid = textureLoaderAsteroid.load( './assets/asteroid2.jpg' );
+  textureAsteroid.colorSpace = THREE.SRGBColorSpace;
+    
     
     
   function onProgress( xhr ) {
@@ -82,33 +89,30 @@ function App() {
   //S.add(m),
 
     c.add(S),
-    Array(400).fill().forEach(function () {
+    Array(150).fill().forEach(function () {
       // Generar posiciones aleatorias
-      const [x, y] = Array(2).fill().map(() => THREE.MathUtils.randFloatSpread(220));
+      const [x, y] = Array(2).fill().map(() => THREE.MathUtils.randFloatSpread(250));
   
       // Cargar el modelo OBJ
       const objLoader = new THREE.OBJLoader();
       objLoader.load(
-          './assets/start.obj', // Ruta al archivo del modelo OBJ
+          './assets/Asteroid.obj', // Ruta al archivo del modelo OBJ
           function (obj) {
               // Objeto cargado exitosamente
               // Recorre todas las partes del modelo y aplica los materiales
               obj.traverse(function (child) {
-                  if (child instanceof THREE.Mesh) {
-                      // Configura el material para cada parte del modelo
-                      const material = new THREE.MeshPhysicalMaterial({ color: s, roughness: 0.13 });
-                      // Aplica el material a la parte del modelo
-                      child.material = material;
-                  }
+                if ( child.isMesh ) child.material.map = textureAsteroid;
               });
   
               // Crea un grupo para el objeto cargado
               const group = new THREE.Group();
-              obj.scale.setScalar( 0.8 );
+              const randomScale = Math.random() * (8 - 0.5) + 0.5; // Genera un valor aleatorio entre minScale y maxScale
+              obj.scale.setScalar(randomScale);
+              
               group.add(obj);
   
               // Establecer la posición del grupo
-              group.position.set(x, y, -20);
+              group.position.set(x, y, -50);
   
               // Agrega el grupo a tu escena
               c.add(group);
