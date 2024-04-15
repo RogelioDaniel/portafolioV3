@@ -61,11 +61,17 @@
   box-sizing: border-box;
   color: white;
 }
+.hidden {
+  display: none;
+}
 a {
   text-decoration: none;
 }
 body {
   background: black;
+}
+body.loaded {
+  overflow: visible; /* Muestra el contenido del cuerpo cuando la página esté completamente cargada */
 }
 li a img {
   width: 50%; /* Ancho más pequeño para las imágenes */
@@ -76,6 +82,12 @@ li a img {
   position: relative;
   width: 100%;
   height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.WrapperProfe {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;

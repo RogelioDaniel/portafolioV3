@@ -56,10 +56,35 @@ camera.add( light );
 
 
   }
+
+  function loadModelSun() {
+      
+    object.traverse( function ( child ) {
+
+      if ( child.isMesh ) child.material.map = textureSun;
+
+    } );
+
+    object.position.y = 20;
+    object.position.z = -30;
+    object.scale.setScalar( 0.8 );
+
+    c.add( object );
+    render();
+
+
+
+  }
   const manager = new THREE.LoadingManager( loadModel );
   const textureLoader = new THREE.TextureLoader( manager );
   const texture = textureLoader.load( './assets/earth3.jpg', function ( texture ) {
       texture.encoding = THREE.sRGBEncoding;
+  });
+  
+  const managerSun = new THREE.LoadingManager( loadModelSun );
+  const textureLoaderSun = new THREE.TextureLoader( managerSun );
+  const textureSun = textureLoaderSun.load( './assets/nave2.png', function ( textureSun ) {
+    textureSun.colorSpace = THREE.SRGBColorSpace;
   });
   
 
@@ -82,6 +107,13 @@ camera.add( light );
 
   const m = new THREE.OBJLoader( manager );
   m.load( './assets/earth2.obj', function ( obj ) {
+
+    object = obj;
+    animate();
+  },onProgress );
+
+  const mm = new THREE.OBJLoader( managerSun );
+  mm.load( './assets/nave2.obj', function ( obj ) {
 
     object = obj;
     animate();
@@ -165,7 +197,7 @@ camera.add( light );
         },
       })
       .from(title, { xPercent: -31, opacity: 0 }, "<+=0.00")
-      .to(m.rotation, { x: 10 * -Math.PI }, "<+=10.00"),
+      .to(m.position, { x: 100 * -Math.PI }, "<+=10.00"),
     gsap
       .timeline({
         defaults: { ease: "expoScale(0.5,7,none)" },
@@ -193,10 +225,14 @@ camera.add( light );
 
       .to(title, { y: -700, opacity: 0 }, "<+=0.00")
       .to(o, { y: -310, opacity: 0 }, "<+=0.00")
+
       .from(n.querySelector("h1"), { opacity: 0 }, "<+=0.00")
       .from(n.querySelector("h1 span"), { yPercent: 50 }, "<+=0.00")
       .from(nn.querySelector("h1"), { opacity: 0 }, "<+=0.00")
       .from(nn.querySelector("h1 span"), { yPercent: 100 }, "<+=0.00")
+      .to(".CanvasWrap", {
+        x: 0,
+      },"<+=0.00")
       
 
       .to(
@@ -210,9 +246,11 @@ camera.add( light );
         "<+=0.00"
       )
       .to(camera.position, { z: 50}, "<+=0.00") 
-      .to(camera.position, { y: 0 }, "<+=0.00") //camera scroll
-      .to(camera.rotation, { z: 1}, "<+=0.00")
+      .to(camera.position, { y: 50 }, "<+=0.00") //camera scroll
+      .to(camera.rotation, { z: 0}, "<+=0.00")
 
+
+      
 
 
       
