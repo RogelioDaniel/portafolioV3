@@ -1,9 +1,10 @@
 function App() {
-  let e = document.querySelector(".Title"),
+  let title = document.querySelector(".Title"),
     o = document.querySelector(".ScrollDown"),
     a = document.querySelector(".TriggerClass"),
     n = document.querySelector(".Wrapper2"),
     nn = document.querySelector(".Wrapper3"),
+    nnn = document.querySelector(".Wrapper4"),
     r = document.querySelector(".CanvasElementClass"),
     i = (new THREE.Color("#ff375f"), new THREE.Color("#ffd60a")),
     s = new THREE.Color("#ffffff"),
@@ -16,7 +17,7 @@ function App() {
   u.setPixelRatio(window.devicePixelRatio), u.setSize(d, p);
 
   let w = d / p,
-    camera = new THREE.PerspectiveCamera(50, w, 0.1, 1e3);
+    camera = new THREE.PerspectiveCamera(30, w, 0.1, 1e3);
 
   camera.position.setZ(100),
     addEventListener("resize", function () {
@@ -27,10 +28,11 @@ function App() {
         camera.updateProjectionMatrix();
     });
 
-  const E = new THREE.PointLight(16772574, 0.7),
-    h = new THREE.AmbientLight(16777215, 0.6);
+  const E = new THREE.PointLight(0xffffff, 0.7),
+    h = new THREE.AmbientLight(0xffffff, 0.6);
   c.add(h);
-
+var light = new THREE.AmbientLight( 0xffffff, 0.5 );
+camera.add( light );
     
   function render() {
 
@@ -38,16 +40,15 @@ function App() {
 
   }
   function loadModel() {
-
+      
     object.traverse( function ( child ) {
 
       if ( child.isMesh ) child.material.map = texture;
 
     } );
 
-    object.position.y = 0;
-    object.rotation.x = -50;
-    object.scale.setScalar( 5 );
+    object.position.x = 0;
+    object.scale.setScalar( 10 );
 
     c.add( object );
     render();
@@ -57,8 +58,10 @@ function App() {
   }
   const manager = new THREE.LoadingManager( loadModel );
   const textureLoader = new THREE.TextureLoader( manager );
-  const texture = textureLoader.load( './assets/earth.jpg' );
-  texture.colorSpace = THREE.SRGBColorSpace;
+  const texture = textureLoader.load( './assets/earth3.jpg', function ( texture ) {
+      texture.encoding = THREE.sRGBEncoding;
+  });
+  
 
   const textureLoaderAsteroid = new THREE.TextureLoader( manager );
   const textureAsteroid = textureLoaderAsteroid.load( './assets/asteroid2.jpg' );
@@ -78,16 +81,16 @@ function App() {
   }
 
   const m = new THREE.OBJLoader( manager );
-  m.load( './assets/earth.obj', function ( obj ) {
+  m.load( './assets/earth2.obj', function ( obj ) {
 
     object = obj;
     animate();
   },onProgress );
 
-
     Array(150).fill().forEach(function () {
       // Generar posiciones aleatorias
-      const [x, y] = Array(2).fill().map(() => THREE.MathUtils.randFloatSpread(500));
+      const [x, y] = Array(2).fill().map(() => THREE.MathUtils.randFloatSpread(d-400
+      ));
   
       // Cargar el modelo OBJ
       const objLoader = new THREE.OBJLoader();
@@ -161,8 +164,8 @@ function App() {
           stagger: { from: "end", amount: 0.7 },
         },
       })
-      .from(e, { xPercent: -31, opacity: 0 }, "<+=0.00")
-      .to(m.rotation, { x: 1 * -Math.PI }, "<+=0.00"),
+      .from(title, { xPercent: -31, opacity: 0 }, "<+=0.00")
+      .to(m.rotation, { x: 10 * -Math.PI }, "<+=10.00"),
     gsap
       .timeline({
         defaults: { ease: "expoScale(0.5,7,none)" },
@@ -184,13 +187,18 @@ function App() {
                   duration: 1.3,
                   ease: "power3.out",
                 });
-          },
+          }
         },
       })
-      .to(e, { y: -700 }, "<+=0.00")
+
+      .to(title, { y: -700, opacity: 0 }, "<+=0.00")
       .to(o, { y: -310, opacity: 0 }, "<+=0.00")
       .from(n.querySelector("h1"), { opacity: 0 }, "<+=0.00")
       .from(n.querySelector("h1 span"), { yPercent: 50 }, "<+=0.00")
+      .from(nn.querySelector("h1"), { opacity: 0 }, "<+=0.00")
+      .from(nn.querySelector("h1 span"), { yPercent: 100 }, "<+=0.00")
+      
+
       .to(
         camera,
         {
@@ -201,40 +209,12 @@ function App() {
         },
         "<+=0.00"
       )
-      .to(camera.position, { z: 50 }, "<+=0.00") 
-      .to(camera.position, { y: 25 }, "<+=0.00") //camera scroll
-      .to(camera.rotation, { y: 0}, "<+=0.00")
+      .to(camera.position, { z: 50}, "<+=0.00") 
+      .to(camera.position, { y: 0 }, "<+=0.00") //camera scroll
+      .to(camera.rotation, { z: 1}, "<+=0.00")
 
 
-/// segundo parrafo
-      gsap
-      .timeline({
-        defaults: { ease: "none" },
-        scrollTrigger: {
-          trigger: a,
-          start: "0% 0%",
-          end: "100% 0%",
-          scrub: 5.2,
 
-          onUpdate: function (e) {
-            e.progress > 0.031
-              ? gsap.to(o.querySelector("span"), {
-                  opacity: 0,
-                  duration: 1.3,
-                  ease: "power3.out",
-                })
-              : gsap.to(o.querySelector("span"), {
-                  opacity: 1,
-                  duration: 1.3,
-                  ease: "power3.out",
-                });
-          },
-        },
-      })
-      .to(n, { y: -700 }, "<+=0.00")
-      .to(n, { y: -310, opacity: 0 }, "<+=0.00")
-      .from(nn.querySelector("h1"), { opacity: 0 }, "<+=0.00")
-      .from(nn.querySelector("h1 span"), { yPercent: 50 }, "<+=0.00")
       
 
   const T = new THREE.Group();
