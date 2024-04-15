@@ -65,7 +65,7 @@ camera.add( light );
 
     } );
 
-    object.position.y = 20;
+    object.position.y = 40;
     object.position.z = -30;
     object.scale.setScalar( 0.8 );
 
@@ -180,6 +180,8 @@ camera.add( light );
     (E.shadow.camera.far = 220),
     (m.castShadow = true),
     (m.receiveShadow = true),
+    (mm.castShadow = true),
+    (mm.receiveShadow = true),
     //(f.castShadow = true),
     //(f.receiveShadow = true),
     (function e() {
@@ -230,8 +232,8 @@ camera.add( light );
       .from(n.querySelector("h1 span"), { yPercent: 50 }, "<+=0.00")
       .from(nn.querySelector("h1"), { opacity: 0 }, "<+=0.00")
       .from(nn.querySelector("h1 span"), { yPercent: 100 }, "<+=0.00")
-      .to(".CanvasWrap", {
-        x: 0,
+      .to(mm, {
+        y: 200,
       },"<+=0.00")
       
 
