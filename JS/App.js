@@ -83,7 +83,7 @@ camera.add( light );
   
   const managerSun = new THREE.LoadingManager( loadModelSun );
   const textureLoaderSun = new THREE.TextureLoader( managerSun );
-  const textureSun = textureLoaderSun.load( './assets/nave2.png', function ( textureSun ) {
+  const textureSun = textureLoaderSun.load( './assets/moon.jpg', function ( textureSun ) {
     textureSun.colorSpace = THREE.SRGBColorSpace;
   });
   
@@ -113,7 +113,7 @@ camera.add( light );
   },onProgress );
 
   const mm = new THREE.OBJLoader( managerSun );
-  mm.load( './assets/nave2.obj', function ( obj ) {
+  mm.load( './assets/moon.obj', function ( obj ) {
 
     object = obj;
     animate();
