@@ -48,7 +48,7 @@ camera.add( light );
     } );
 
     object.position.x = 0;
-    object.scale.setScalar( 10 );
+    object.scale.setScalar( 12 );
 
     c.add( object );
     render();
@@ -66,7 +66,7 @@ camera.add( light );
     } );
 
     object.position.y = 40;
-    object.position.z = -30;
+    object.position.z = -20;
     object.scale.setScalar( 0.8 );
 
     c.add( object );
@@ -199,7 +199,7 @@ camera.add( light );
         },
       })
       .from(title, { xPercent: -31, opacity: 0 }, "<+=0.00")
-      .to(m.position, { x: 100 * -Math.PI }, "<+=10.00"),
+      .to(m.position, { x: 100 * -Math.PI }, "<+=0.00"),
     gsap
       .timeline({
         defaults: { ease: "expoScale(0.5,7,none)" },
@@ -232,7 +232,7 @@ camera.add( light );
       .from(n.querySelector("h1 span"), { yPercent: 50 }, "<+=0.00")
       .from(nn.querySelector("h1"), { opacity: 0 }, "<+=0.00")
       .from(nn.querySelector("h1 span"), { yPercent: 100 }, "<+=0.00")
-      .to(mm, {
+      .to(mm.position, {
         y: 200,
       },"<+=0.00")
       
@@ -291,7 +291,7 @@ window.onload = () => {
 function animate() {
   // Rotar el objeto
 
-  object.rotation.y += 0.002;
+  object.rotation.y += 0.001;
 
   // Solicitar el próximo cuadro de animación
   requestAnimationFrame(animate);

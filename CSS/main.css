@@ -92,6 +92,30 @@ li a img {
   justify-content: center;
   align-items: center;
 }
+
+.WrapperProfeCV {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* Aplica la animación al enlace */
+.WrapperProfeCV {
+  animation: bounce 0.5s ease infinite; /* Ajusta la duración y la función de aceleración según sea necesario */
+}
 .CanvasWrap {
   position: fixed;
   top: 0;
@@ -312,6 +336,7 @@ img {
   transition: width 1000ms;
   translate: 0 20px;
 }
+
 
 
 /* Responsive */
