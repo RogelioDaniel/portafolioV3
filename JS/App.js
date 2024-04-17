@@ -59,17 +59,17 @@ camera.add( light );
 
   function loadModelSun() {
       
-    object.traverse( function ( child ) {
+    object2.traverse( function ( child ) {
 
       if ( child.isMesh ) child.material.map = textureSun;
 
     } );
 
-    object.position.y = 40;
-    object.position.z = -20;
-    object.scale.setScalar( 0.8 );
+    object2.position.y = 40;
+    object2.position.z = -30;
+    object2.scale.setScalar( 1.0 );
 
-    c.add( object );
+    c.add( object2 );
     render();
 
 
@@ -115,7 +115,7 @@ camera.add( light );
   const mm = new THREE.OBJLoader( managerSun );
   mm.load( './assets/moon.obj', function ( obj ) {
 
-    object = obj;
+    object2 = obj;
     animate();
   },onProgress );
 
@@ -232,8 +232,8 @@ camera.add( light );
       .from(n.querySelector("h1 span"), { yPercent: 50 }, "<+=0.00")
       .from(nn.querySelector("h1"), { opacity: 0 }, "<+=0.00")
       .from(nn.querySelector("h1 span"), { yPercent: 100 }, "<+=0.00")
-      .to(mm.position, {
-        y: 200,
+      .to(mm, {
+        y: 500,
       },"<+=0.00")
       
 
@@ -247,9 +247,8 @@ camera.add( light );
         },
         "<+=0.00"
       )
-      .to(camera.position, { z: 50}, "<+=0.00") 
-      .to(camera.position, { y: 50 }, "<+=0.00") //camera scroll
-      .to(camera.rotation, { z: 0}, "<+=0.00")
+      //.to(camera.position, { z: 50}, "<+=0.00") 
+      //.to(camera.position, { y: 50 }, "<+=0.00") //camera scroll
 
 
       
@@ -292,7 +291,7 @@ function animate() {
   // Rotar el objeto
 
   object.rotation.y += 0.001;
-
+  object2.position.y += -0.009;
   // Solicitar el próximo cuadro de animación
   requestAnimationFrame(animate);
 }
