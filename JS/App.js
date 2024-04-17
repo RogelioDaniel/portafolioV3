@@ -247,7 +247,7 @@ camera.add( light );
         },
         "<+=0.00"
       )
-      //.to(camera.position, { z: 50}, "<+=0.00") 
+      .to(camera.position, { z: 50}, "<+=0.00") 
       //.to(camera.position, { y: 50 }, "<+=0.00") //camera scroll
 
 
