@@ -48,7 +48,7 @@ camera.add( light );
     } );
 
     object.position.x = 0;
-    object.scale.setScalar( 12 );
+    object.scale.setScalar( 40 );
 
     c.add( object );
     render();
@@ -106,7 +106,7 @@ camera.add( light );
   }
 
   const m = new THREE.OBJLoader( manager );
-  m.load( './assets/earth2.obj', function ( obj ) {
+  m.load( './assets/earth.obj', function ( obj ) {
 
     object = obj;
     animate();
@@ -232,8 +232,8 @@ camera.add( light );
       .from(n.querySelector("h1 span"), { yPercent: 50 }, "<+=0.00")
       .from(nn.querySelector("h1"), { opacity: 0 }, "<+=0.00")
       .from(nn.querySelector("h1 span"), { yPercent: 100 }, "<+=0.00")
-      .to(mm, {
-        y: 500,
+      .to(".WrapperProfe", {
+        z: 500,
       },"<+=0.00")
       
 
@@ -291,7 +291,7 @@ function animate() {
   // Rotar el objeto
 
   object.rotation.y += 0.001;
-  object2.position.y += -0.009;
+  object2.position.y += -0.012;
   // Solicitar el próximo cuadro de animación
   requestAnimationFrame(animate);
 }
