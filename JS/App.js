@@ -38,7 +38,9 @@ camera.add( light );
 
     u.render( c, camera );
 
+    
   }
+  
   function loadModel() {
       
     object.traverse( function ( child ) {
@@ -72,13 +74,29 @@ camera.add( light );
     c.add( object2 );
     render();
 
-
-
   }
+
+  function loadRocket(){
+    let loader = new THREE.GLTFLoader();
+    loader.load( "./assets/rocket.gltf",
+      (gltf) => {
+        rocket = gltf.scene;
+        rocket.position.y = 40;
+        rocket.position.x = 0;
+        rocket.position.z = 50;
+        rocket.scale.setScalar( 0.01 );
+        c.add(rocket);
+        render();
+      }
+    );
+    
+  }
+  
   const manager = new THREE.LoadingManager( loadModel );
   const textureLoader = new THREE.TextureLoader( manager );
   const texture = textureLoader.load( './assets/earth3.jpg', function ( texture ) {
       texture.encoding = THREE.sRGBEncoding;
+      
   });
   
   const managerSun = new THREE.LoadingManager( loadModelSun );
@@ -101,6 +119,7 @@ camera.add( light );
       const percentComplete = xhr.loaded / xhr.total * 100;
       console.log( 'model ' + percentComplete.toFixed( 2 ) + '% downloaded' );
 
+
     }
 
   }
@@ -114,7 +133,7 @@ camera.add( light );
 
   const mm = new THREE.OBJLoader( managerSun );
   mm.load( './assets/moon.obj', function ( obj ) {
-
+    loadRocket();
     object2 = obj;
     animate();
   },onProgress );
@@ -247,9 +266,9 @@ camera.add( light );
         },
         "<+=0.00"
       )
-      .to(camera.position, { z: 50}, "<+=0.00") 
-      //.to(camera.position, { y: 50 }, "<+=0.00") //camera scroll
-      .set(mm.position, {x: 80, y: -32, z: -60})
+
+      .to(camera.position, { y: 50, z: 50}, "<+=0.00") //camera scroll
+      .set(mm.position, {x: 80, y: -32, z: 60})
 
 
       

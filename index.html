@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="CSS/preloader.css">
   <link rel="stylesheet" href="CSS/main.css">
   <link rel="stylesheet" href="CSS/cardAboutMe.css">
+  <link rel="stylesheet" href="CSS/rocket.css">
   <link rel="icon" href="./assets/iconlogo.png">
       <!-- ===========================
     GOOGLE ANALYTICS (Optional)
@@ -29,6 +30,7 @@
 
 </head>
 <body>
+  
   <div id="preloader">
     <div id="loader"></div>
   </div>
@@ -41,7 +43,7 @@
       <Canvas class="CanvasElementClass"></Canvas>
     </div>
     <!------------/Canvas------------->
-
+   
     <!------------Title------------->
     <div class="Title">
       <h1 data-text="Hey! I'm Daniel"><span>Hey! I'm Daniel</span></h1>
@@ -276,22 +278,27 @@
       </div>
 
   </div>
-  
+ 
+  <div id="canvas"></div>
 
  
   <!-- THREE.JS -->
   <script src="https://cdn.jsdelivr.net/npm/three@0.139.0/build/three.min.js"></script>
   <!-- OrbitControls.js -->
   <script src="https://cdn.jsdelivr.net/npm/three@0.139.0/examples/js/controls/OrbitControls.js"></script>
+
   <!-- GSAP.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
   <!-- ScrollTrigger.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://unpkg.com/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+
   <script src="JS/OBJLoader.js"></script>
   <!-- App.js -->
   <script src="JS/preloader.js"></script>
   <script src="JS/App.js"></script>
+  <script src="JS/rocket.js"></script>
 
   <script>
     // Function to detect if the device is a mobile
