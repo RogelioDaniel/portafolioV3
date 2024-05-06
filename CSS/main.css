@@ -281,6 +281,17 @@ li a img {
 .Wrapper3 h1 span {
   display: inline-flex;
 }
+/* Estilos para hacer las imágenes más pequeñas */
+.Wrapper3 img {
+  width: 80px; /* Ancho deseado para las imágenes */
+  height: auto; /* Para mantener la proporción de aspecto */
+  transition: box-shadow 0.3s ease; /* Transición suave para el efecto */
+}
+
+/* Estilos para iluminar el contorno al pasar el mouse */
+.Wrapper3 img:hover {
+  box-shadow: 0 0 10px 20px rgba(249, 249, 249, 0.5); /* Iluminar el contorno */
+}
 
 .Wrapper4 h1 {
   font-size: var(--FontH2);

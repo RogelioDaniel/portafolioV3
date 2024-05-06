@@ -195,27 +195,25 @@ button {
   font-family: inherit;
   font-weight: bold;
   color: var(--white-1);
-
   letter-spacing: 2px;
-
   padding: 9px 20px;
   border: 1px solid var(--grey);
   border-radius: 1000px;
   background: transparent;
   transition: .3s;
-
   cursor: pointer;
 }
 
 button:hover,
 button:focus {
-  color: var(--primary);
+  color: white;
   background: hsla(var(--hue), 25%, 10%, .2);
   border-color: currentColor;
 }
 
 button:active {
   transform: translate(2px);
+  
 }
 
 /* .design-container */

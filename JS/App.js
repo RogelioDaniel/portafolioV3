@@ -62,9 +62,7 @@ camera.add( light );
         start: "0% 0%",
         end: "50% 0%",
         scrub: 5.2,
-      repeat: -1,
-      repeatDelay: 0,
-      yoyo: 1,
+
   }}).to(object.position, { z: "+=5", y: "+=31" }, "<+=0.00")
 
 
@@ -248,7 +246,7 @@ camera.add( light );
         defaults: { ease: "expoScale(0.5,7,none)" },
         scrollTrigger: {
           trigger: a,
-          start: "50% 0%",
+          start: "0% 0%",
           end: "100% 0%",
           scrub: 5.2,
 
