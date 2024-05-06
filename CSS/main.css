@@ -322,12 +322,11 @@ img {
 /** cards **/
 .cont-items {
   color: white;
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(0, 0, 0, 0.2);
   height: 90vh;
   width: 150px;
   border: solid 5px;
   border-color: black;
-  border-radius: 200px;
   overflow: hidden;
   display: grid;
   transition: border-radius 500ms, opacity 500ms, width 500ms;
@@ -335,6 +334,9 @@ img {
   isolation: isolate;
 
   justify-content: center;
+}
+.cont-items:hover {
+  box-shadow: 0 0 10px 2px rgba(255, 255, 255, 10.5); /* Iluminar el contorno */
 }
 .video-container p{
   width: 100%; /* Ajustar al ancho máximo */
