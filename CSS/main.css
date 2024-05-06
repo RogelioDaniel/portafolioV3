@@ -239,14 +239,33 @@ li a img {
   font-size: var(--FontParagraph);
   animation: ScrollDownAni 2.2s infinite alternate-reverse ease;
 }
-@keyframes ScrollDownAni {
+.scrollup-container {
+  position: relative; 
+  bottom: -550px; 
+}
+
+.ScrollUp {
+  position: absolute; 
+  bottom: 20px; 
+  left: 50%; 
+  transform: translateX(-50%); 
+  z-index: 999; 
+}
+
+.ScrollUp h1 {
+  font-size: 16px; 
+  animation: ScrollUpAni 2.2s infinite alternate-reverse ease; 
+}
+
+
+@keyframes ScrollUpAni {
   from {
-    opacity: 0;
-    transform: translateY(31%);
-  }
-  to {
     opacity: 1;
     transform: translateY(-31%);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(31%);
   }
 }
 .Wrapper2 h1 {

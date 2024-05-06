@@ -16,7 +16,7 @@ const createScene = () => {
 
   scene = new THREE.Scene();
 
-  scene.fog = new THREE.Fog(0x5d0361, 10, 1500);
+  scene.fog = new THREE.Fog();
 
   aspectRatio = WIDTH / HEIGHT;
   fieldOfView = 60;

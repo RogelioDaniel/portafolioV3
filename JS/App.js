@@ -17,7 +17,7 @@ function App() {
   u.setPixelRatio(window.devicePixelRatio), u.setSize(d, p);
 
   let w = d / p,
-    camera = new THREE.PerspectiveCamera(30, w, 0.1, 1e3);
+    camera = new THREE.PerspectiveCamera(45, w, 0.1, 1e3);
 
   camera.position.setZ(100),
     addEventListener("resize", function () {
@@ -27,7 +27,6 @@ function App() {
         (camera.aspect = d / p),
         camera.updateProjectionMatrix();
     });
-
   const E = new THREE.PointLight(0xffffff, 0.7),
     h = new THREE.AmbientLight(0xffffff, 0.6);
   c.add(h);
@@ -50,10 +49,23 @@ camera.add( light );
     } );
 
     object.position.x = 0;
-    object.scale.setScalar( 40 );
+    object.rotation.y = 50;
+    object.scale.setScalar( 30 );
 
     c.add( object );
     render();
+    gsap.timeline({
+      
+      defaults: { duration: 7, ease: "power3.inOut" },
+      scrollTrigger: {
+        trigger: a,
+        start: "0% 0%",
+        end: "50% 0%",
+        scrub: 5.2,
+      repeat: -1,
+      repeatDelay: 0,
+      yoyo: 1,
+  }}).to(object.position, { z: "+=5", y: "+=31" }, "<+=0.00")
 
 
 
@@ -87,9 +99,19 @@ camera.add( light );
         rocket.scale.setScalar( 0.01 );
         c.add(rocket);
         render();
+        gsap.timeline({
+          defaults: { duration: 7, ease: "power3.inOut" },
+          repeat: -1,
+          repeatDelay: 0,
+          yoyo: 1,
+      }).to(rocket.position, { z: "+=31", y: "+=31" }, "<+=0.00").to(
+        rocket.rotation,
+          { y: 1.31 * Math.PI, x: 1.13 * Math.PI, z: 0.22 * Math.PI },
+          "<+=0.00"
+      );
       }
     );
-    
+   
   }
   
   const manager = new THREE.LoadingManager( loadModel );
@@ -129,6 +151,7 @@ camera.add( light );
 
     object = obj;
     animate();
+    
   },onProgress );
 
   const mm = new THREE.OBJLoader( managerSun );
@@ -219,12 +242,13 @@ camera.add( light );
       })
       .from(title, { xPercent: -31, opacity: 0 }, "<+=0.00")
       .to(m.position, { x: 100 * -Math.PI }, "<+=0.00"),
+      
     gsap
       .timeline({
         defaults: { ease: "expoScale(0.5,7,none)" },
         scrollTrigger: {
           trigger: a,
-          start: "0% 0%",
+          start: "50% 0%",
           end: "100% 0%",
           scrub: 5.2,
 
@@ -259,7 +283,7 @@ camera.add( light );
       .to(
         camera,
         {
-          fov: 150,
+          fov: 100  ,
           onUpdate: function () {
             camera.updateProjectionMatrix();
           },
@@ -268,13 +292,7 @@ camera.add( light );
       )
 
       .to(camera.position, { y: 50, z: 50}, "<+=0.00") //camera scroll
-      .set(mm.position, {x: 80, y: -32, z: 60})
-
-
-      
-
-
-      
+   
 
   const T = new THREE.Group();
   T.add(camera),
