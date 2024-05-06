@@ -50,17 +50,17 @@ camera.add( light );
 
     object.position.x = 0;
     object.rotation.y = 50;
-    object.scale.setScalar( 30 );
+    object.scale.setScalar( 40 );
 
     c.add( object );
     render();
     gsap.timeline({
       
-      defaults: { duration: 7, ease: "power3.inOut" },
+      defaults: { duration: 7, ease: "power4.in" },
       scrollTrigger: {
         trigger: a,
         start: "0% 0%",
-        end: "50% 0%",
+        end: "100% 0%",
         scrub: 5.2,
 
   }}).to(object.position, { z: "+=5", y: "+=31" }, "<+=0.00")
@@ -83,6 +83,16 @@ camera.add( light );
 
     c.add( object2 );
     render();
+    gsap.timeline({
+      
+      defaults: { duration: 7, ease: "power4.in" },
+      scrollTrigger: {
+        trigger: a,
+        start: "0% 0%",
+        end: "100% 0%",
+        scrub: 5.2,
+
+  }}).to(object2.rotation, { y: "+=1" }, "<+=0.00")
 
   }
 

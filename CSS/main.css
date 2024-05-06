@@ -325,8 +325,9 @@ img {
   background-color: rgba(0, 0, 0, 0.2);
   height: 90vh;
   width: 150px;
-  border: solid 5px;
+  border: solid 1px;
   border-color: black;
+  border-radius: 10%;
   overflow: hidden;
   display: grid;
   transition: border-radius 500ms, opacity 500ms, width 500ms;
