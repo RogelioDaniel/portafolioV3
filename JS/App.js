@@ -101,10 +101,10 @@ camera.add( light );
     loader.load( "./assets/rocket.gltf",
       (gltf) => {
         rocket = gltf.scene;
-        rocket.position.y = 40;
+        rocket.position.y = 0;
         rocket.position.x = 0;
         rocket.position.z = 50;
-        rocket.scale.setScalar( 0.01 );
+        rocket.scale.setScalar( 0.015 );
         c.add(rocket);
         render();
         gsap.timeline({

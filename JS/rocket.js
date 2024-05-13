@@ -69,26 +69,26 @@ const createLights = () => {
 const targetRocketPosition = 40;
 const animationDuration = 20000;
 
-const loop = () => {
-  const t = (Date.now() % animationDuration) / animationDuration;
+// const loop = () => {
+//   const t = (Date.now() % animationDuration) / animationDuration;
 
-  renderer.render(scene, camera);
+//   renderer.render(scene, camera);
 
-  const delta = targetRocketPosition * Math.sin(Math.PI * 2 * t);
-  if (rocket) {
-    rocket.rotation.y += 0.01;
-    rocket.position.y = delta; 
-  }
+//   const delta = targetRocketPosition * Math.sin(Math.PI * 2 * t);
+//   if (rocket) {
+//     rocket.rotation.y += 0.01;
+//     rocket.position.y = delta; 
+//   }
 
-  requestAnimationFrame(loop);
-};
+//   requestAnimationFrame(loop);
+// };
 
 const main = () => {
   createScene();
   createLights();
 
   renderer.render(scene, camera);
-  loop();
+  // loop();
 };
 
 main();
