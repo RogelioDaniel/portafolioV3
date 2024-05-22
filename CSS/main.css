@@ -468,6 +468,17 @@ img {
     --FontSubtitle: 1.333vw;
     --IconSize: calc(var(--FontSubtitle) * 2);
   }
+  .CanvasWrap {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 60%;
+    height: 60;
+  }
+  .CanvasElementClass {
+    width: 60%;
+    height: 60%;
+  }
   .Title {
     font-size: var(--FontH4);
   }
@@ -503,6 +514,17 @@ img {
     --FontSubtitle: 3.3333vw;
     --IconSize: calc(var(--FontSubtitle) * 2);
     --FontBG: 29.9072vw;
+  }
+  .CanvasWrap {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 30%;
+    height: 30;
+  }
+  .CanvasElementClass {
+    width: 30%;
+    height: 30%;
   }
   .Title {
     font-size: var(--FontH5);
