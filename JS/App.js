@@ -299,7 +299,7 @@ camera.add( light );
         "<+=0.00"
       )
 
-      .to(camera.position, { y: 50, z: 50}, "<+=0.00") //camera scroll
+      .to(camera.rotation, { x: 0.9}, "<+=0.00") //camera scroll
    
 
   const T = new THREE.Group();
@@ -337,7 +337,6 @@ function animate() {
   // Rotar el objeto
 
   object.rotation.y += 0.001;
-  object2.position.y += -0.012;
   // Solicitar el próximo cuadro de animación
   requestAnimationFrame(animate);
 }
